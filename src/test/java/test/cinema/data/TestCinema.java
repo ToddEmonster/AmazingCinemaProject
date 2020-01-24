@@ -238,7 +238,7 @@ class TestCinema {
 	@Test
 	void directorByDecade() {
 		var pers = persons.stream()
-		.collect(Collectors.groupingBy((Person p) -> p.getBirthDate().getYear() / 10));
+		.collect(Collectors.groupingBy((Person p) -> p.getBirthdate().getYear() / 10));
 		System.out.println(pers);
 	}
 	

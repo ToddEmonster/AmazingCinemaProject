@@ -1,6 +1,5 @@
 package cinema.controller;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -18,139 +17,86 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cinema.persistence.entity.Movie;
-import cinema.service.impl.IMovieService;
+import cinema.service.IMovieService;
 
 @RestController
-@RequestMapping("/api/movies")
+@RequestMapping("/api/movie")
 public class MovieController {
-		
-	@Autowired
-	IMovieService movieService;
 	
-	/*
-	 * GET --reading movies
-	 */
+	@Autowired
+	IMovieService MovieService;
+	
+	// Methodes Get
 	
 	@GetMapping
 	@ResponseBody
-	public List<Movie> allMovies () {
-		return movieService.getAllMovies();
+	public List<Movie> allMovies() {
+		return MovieService.getAllMovies();
 	}
 	
 	@GetMapping("/{id}")
 	@ResponseBody
-	public Optional<Movie>movieById(@PathVariable("id") int idMovie) {
-		return movieService.getMovieById(idMovie);
+	public Optional<Movie> movieById(@PathVariable("id") int idMovie) {
+		return MovieService.getMovieById(idMovie);
 	}
 	
 	@GetMapping("/byTitle")
 	@ResponseBody
-	public Set<Movie>movieByPartialTitle(@RequestParam("t") String partialTitle) {
-		return movieService.getMovieByPartialTitle(partialTitle);
-	}
-	
-	@GetMapping("/byYear")
-	@ResponseBody
-	public Set<Movie>findByYearBetween(@RequestParam("y1") int year1, @RequestParam("y2") int year2 ) {
-		return movieService.getByYearBetween(year1, year2);
+	public Set<Movie> movieByPartialTitle(@RequestParam("t") String partialTitle) {
+		return MovieService.getMovieByPartialTitle(partialTitle);
 	}
 	
 	@GetMapping("/byDirector")
 	@ResponseBody
-	public Set<Movie>findByDirector(@RequestParam ("d") String directorName) {
-		return movieService.getByDirector(directorName);
-	}
-
-	@GetMapping("/byDirectorId")
-	@ResponseBody
-	public Set<Movie>findByDirector(@RequestParam ("d") int idDirector) {
-		return movieService.getByDirector(idDirector);
-	}
-
-	@GetMapping("/byActor")
-	@ResponseBody
-	public Set<Movie>findByActor(@RequestParam ("a") int idActor) {
-		return movieService.getByActor(idActor);
+	public Set<Movie> findByDirector(@RequestParam("d") int idDirector) {
+		return MovieService.getMoviesByDirector(idDirector);
 	}
 	
-	@GetMapping("/byPerson")
+	@GetMapping("/byActorId")
 	@ResponseBody
-	public Set<Movie>findByActorOrDirector(@RequestParam("a") String actorName, @RequestParam("d") String directorName) {
-		return movieService.getByActorOrDirector(actorName, directorName);
+	public Set<Movie> findByActorId(@RequestParam("a") int idActor) {
+		return MovieService.getMoviesByActorsIdPerson(idActor);
 	}
-
 	
-//	/*
-//	 * POST --add movies
-//	 */
+	@GetMapping("/byActorName")
+	public Set<Movie> findByActorName(@RequestParam("a") String nameActor) {
+		return MovieService.getMoviesByActorsNameEndingWithIgnoreCase(nameActor);
+	}	
 	
-//	@PostMapping
-//	@ResponseBody
-//	public Movie addMovie(@RequestBody Movie movie) {
-//		Movie movieSaved = movieRepository.save(movie);
-//		movieRepository.flush();
-//		return movieSaved;
-//	}
-//	
-//	/**
-//	 * PUT
-//	 */
-//	@PutMapping("/modify")
-//	@ResponseBody
-//	public Optional<Movie> modifyMovie(@RequestBody Movie movie) {
-//		// TODO : somewhere else
-//		var optMovie = movieRepository.findById(movie.getIdMovie());
-//		optMovie.ifPresent(m -> {
-//			m.setTitle(movie.getTitle());
-//			m.setYear(movie.getYear());
-//			m.setDuration(movie.getDuration());
-//			m.setDirector(movie.getDirector());
-//			movieRepository.flush();
-//		});
-//		//
-//		return optMovie;
-//	}
-//	
-//
-//	@PutMapping("/addActor")
-//	@ResponseBody
-//	public Optional<Movie> addActor(@RequestParam("a") int idActor, @RequestParam("m") int idMovie) {
-//		//TODO: somewhere else
-//		var optMovie = movieRepository.findById(idMovie);
-//		var optActor= personRepository.findById(idActor);
-//		if (optMovie.isPresent() && optActor.isPresent()) {
-//			optMovie.get().getActors().add(optActor.get());
-//			movieRepository.flush();
-//		}
-//		return optMovie;
-//	}
-//	
-//	@PutMapping("/setDirector")
-//	@ResponseBody
-//	public Optional<Movie> setDirector(@RequestParam("a") int idDirector, @RequestParam("m") int idMovie) {
-//		//TODO: somewhere else
-//		var optMovie = movieRepository.findById(idMovie);
-//		var optDirector= personRepository.findById(idDirector);
-//		if (optMovie.isPresent() && optDirector.isPresent()) {
-//			optMovie.get().setDirector(optDirector.get());
-//			movieRepository.flush();
-//		}
-//		return optMovie;
-//	}
-//	
-//	
-//	/**
-//	 * DELETE
-//	 */
-//	@DeleteMapping("/{id}")
-//	@ResponseBody
-//	public Optional<Movie> deleteMovie(@PathVariable("id") int idMovie) {
-//		var movieToDelete = movieRepository.findById(idMovie);
-//		movieToDelete.ifPresent(m-> {
-//			movieRepository.delete(m);
-//			movieRepository.flush();
-//		});
-//		return movieToDelete;
-//	}
+	
+	// Methodes Put, Post, Delete
+	@PostMapping
+	@ResponseBody
+	public Movie addMovie(@RequestBody Movie movie) {
+		return MovieService.addMovie(movie);
+	}
+	
+	
+	// Dans un Controller, toujours renvoyer un truc et pas un void pour voir
+	// Mettre un alias pour RequestParam permet de s'affranchir de l'ordre d'appel
+	@PutMapping("/addActor")
+	public Optional<Movie> addActor(@RequestParam("a") int idActor,
+									@RequestParam("m") int idMovie) {
+		return MovieService.addActor(idActor, idMovie);
+	}
+	
+	@PutMapping("/setDirector")
+	@ResponseBody
+	public Optional<Movie> setDirector(@RequestParam("d") int idDirector,
+									   @RequestParam("m") int idMovie) {
+		return MovieService.setDirector(idDirector, idMovie);
+	}
+	
+	@PutMapping("/modify")
+	@ResponseBody
+	public Optional<Movie> modifyMovie(@RequestBody Movie movie) {
+		return MovieService.modifyMovie(movie);
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseBody
+	public Optional<Movie> deleteMovie(@PathVariable("id") int idMovie) {
+		return MovieService.deleteMovie(idMovie);
+	}
 	
 }

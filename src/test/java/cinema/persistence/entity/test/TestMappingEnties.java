@@ -99,7 +99,7 @@ class TestMappingEnties {
 		Movie batman = new Movie("The dark knight", 2008);
 		repoMovie.save(batman);
 //		repoMovie.flush();
-		Person chris = (Person) repoPerson.findByNameIgnoreCaseContaining("nolan").stream().findFirst().get();
+		Person chris = (Person) repoPerson.findByNameContainingIgnoreCase("nolan").stream().findFirst().get();
 		batman.setDirector(chris);
 		repoMovie.flush();
 	}
@@ -113,7 +113,7 @@ class TestMappingEnties {
 
 	@Test
 	void findByBirth() {
-		var data1 = repoPerson.findByBirthDateYear(1940);
+		var data1 = repoPerson.findByBirthdateYear(1940);
 		System.out.println(data1);
 	}
 	
@@ -121,8 +121,8 @@ class TestMappingEnties {
 	@Test
 	void initialActorsListToMovie() {
 		var unforgiven = repoMovie.findByTitle("Unforgiven").stream().findFirst().get();
-		var clint = repoPerson.findByNameContaining("Eastwood").stream().findFirst().get();
-		var gene = repoPerson.findByNameContaining("Hackmann").stream().findFirst().get();
+		var clint = repoPerson.findByNameContainingIgnoreCase("Eastwood").stream().findFirst().get();
+		var gene = repoPerson.findByNameContainingIgnoreCase("Hackmann").stream().findFirst().get();
 		unforgiven.setActors(List.of(clint, gene));
 		repoMovie.flush();
 	}
@@ -131,8 +131,8 @@ class TestMappingEnties {
 	@Test
 	void addActorsToMovie() {
 		var unforgiven = repoMovie.findByTitle("Unforgiven").stream().findFirst().get();
-		var clint = repoPerson.findByNameContaining("Eastwood").stream().findFirst().get();
-		var gene = repoPerson.findByNameContaining("Hackmann").stream().findFirst().get();
+		var clint = repoPerson.findByNameContainingIgnoreCase("Eastwood").stream().findFirst().get();
+		var gene = repoPerson.findByNameContainingIgnoreCase("Hackmann").stream().findFirst().get();
 		unforgiven.setActors(List.of(clint, gene));
 		repoMovie.flush();
 	}
@@ -141,7 +141,7 @@ class TestMappingEnties {
 	void testLazyActors() {
 		// read a movie : select the movie + it's director
 		var unforgiven = repoMovie.findByTitle("Unforgiven").stream().findFirst().get();
-		var morgan= repoPerson.findByNameContaining("Freeman").stream().findFirst().get();
+		var morgan= repoPerson.findByNameContainingIgnoreCase("Freeman").stream().findFirst().get();
 		unforgiven.getActors().add(morgan);		
 		repoMovie.flush();
 	}

@@ -15,17 +15,17 @@ public class Person {
 	
 	private Integer idPerson;
 	private String name;
-	private LocalDate birthDate;
+	private LocalDate birthdate;
 	
-	public Person(Integer idPerson, String name, LocalDate birthDate) {
+	public Person(Integer idPerson, String name, LocalDate birthdate) {
 		super();
 		this.idPerson = idPerson;
 		this.name = name;
-		this.birthDate = birthDate;
+		this.birthdate = birthdate;
 	}
 	
-	public Person(String name, LocalDate birthDate) {
-		this(null, name, birthDate);
+	public Person(String name, LocalDate birthdate) {
+		this(null, name, birthdate);
 	}
 	
 	public Person(String name) {
@@ -56,18 +56,18 @@ public class Person {
 		this.name = name;
 	}
 
-	public LocalDate getBirthDate() {
-		return birthDate;
+	public LocalDate getBirthdate() {
+		return birthdate;
 	}
 
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDate(LocalDate birthdate) {
+		this.birthdate = birthdate;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder(name);
-		return builder.append(" (").append(birthDate).append("). #").append(idPerson).toString();
+		return builder.append(" (").append(birthdate).append("). #").append(idPerson).toString();
 	}
 	
 }

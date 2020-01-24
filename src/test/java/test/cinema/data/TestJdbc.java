@@ -165,7 +165,7 @@ class TestJdbc {
 				System.out.println(Arrays.toString(parts));
 				request.setString(1, parts[0]);
 				request.setString(2, parts[1]);
-				request.setDate(3, Date.valueOf(person.getBirthDate()));		
+				request.setDate(3, Date.valueOf(person.getBirthdate()));		
 				request.executeUpdate();
 			}
 		}

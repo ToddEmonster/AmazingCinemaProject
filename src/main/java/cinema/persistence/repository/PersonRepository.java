@@ -11,9 +11,9 @@ import cinema.persistence.entity.Person;
 public interface PersonRepository extends JpaRepository<Person, Integer>{
 	
 	Set<Person> findByName(String name);
-	Set<Person> findByNameContaining(String name);
-	Set<Person> findByNameIgnoreCaseContaining(String name);
+	Set<Person> findByNameContainingIgnoreCase(String name);
+	Set<Person> findByNameEndingWithIgnoreCase(String name);
 	
 	@Query("select p from Person p where extract(year from birthDate) = ?1")
-	Set<Person> findByBirthDateYear(int year);
+	Set<Person> findByBirthdateYear(int year);
 }

@@ -167,7 +167,7 @@ class TestMovie {
 		    
 		    entityManager.flush();
 		    //when
-		    var moviesWithMel = repoMovie.findByActorsNameEndingWith("Gibson");
+		    var moviesWithMel = repoMovie.findByActorsNameEndingWithIgnoreCase("Gibson");
 		    //then
 		    assertAll(
 		    		()->assertTrue(moviesWithMel.contains(madmax)),

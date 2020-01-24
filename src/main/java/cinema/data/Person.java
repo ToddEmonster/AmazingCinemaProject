@@ -7,13 +7,13 @@ import java.util.OptionalInt;
 
 public class Person {
 	private String name;
-	private LocalDate birthDate;
+	private LocalDate birthdate;
 	
 	
-	public Person(String name, LocalDate birthDate) {
+	public Person(String name, LocalDate birthdate) {
 		super();
 		this.name = name;
-		this.birthDate = birthDate;
+		this.birthdate = birthdate;
 	}
 
 	public Person(String name) {
@@ -28,12 +28,12 @@ public class Person {
 		this.name = name;
 	}
 
-	public LocalDate getBirthDate() {
-		return birthDate;
+	public LocalDate getBirthdate() {
+		return birthdate;
 	}
 
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthdate(LocalDate birthdate) {
+		this.birthdate = birthdate;
 	}
 	
 	/**
@@ -41,14 +41,14 @@ public class Person {
 	 * @return age of Person
 	 */
 	public OptionalInt getAge() {
-		if (Objects.isNull(birthDate)) {
+		if (Objects.isNull(birthdate)) {
 			return OptionalInt.empty();
 	}
 		
 		LocalDate todayFull = LocalDate.now();
-		MonthDay birthDay = MonthDay.of(birthDate.getMonthValue(), birthDate.getDayOfMonth());
+		MonthDay birthDay = MonthDay.of(birthdate.getMonthValue(), birthdate.getDayOfMonth());
 		MonthDay today = MonthDay.now();
-		int deltaYear = todayFull.getYear() - birthDate.getYear();
+		int deltaYear = todayFull.getYear() - birthdate.getYear();
 		
 		if (today.compareTo(birthDay) < 0) {
 			deltaYear --;
@@ -59,7 +59,7 @@ public class Person {
 	
 	@Override
 	public String toString() {
-		return name + " (" + Objects.toString(birthDate, "unknown")+ ")";
+		return name + " (" + Objects.toString(birthdate, "unknown")+ ")";
 	}
 	
 	// TODO : equals + hashCode
