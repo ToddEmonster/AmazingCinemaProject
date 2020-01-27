@@ -51,6 +51,18 @@ public class MovieController {
 	public Set<Movie> findByDirector(@RequestParam("d") int idDirector) {
 		return MovieService.getMoviesByDirector(idDirector);
 	}
+
+	@GetMapping("/byYear")
+	@ResponseBody
+	public Set<Movie> findByYear(@RequestParam("y") int year) {
+		return MovieService.getMoviesByYear(year);
+	}
+
+//	@GetMapping("/byTitleYear")
+//	@ResponseBody
+//	public Set<Movie> findByPartialTitleAndYear(@RequestParam("t") String title, @RequestParam("y") int year) {
+//		return MovieService.getMoviesByPartialTitleAndYear(title, year);
+//	}
 	
 	@GetMapping("/byActorId")
 	@ResponseBody

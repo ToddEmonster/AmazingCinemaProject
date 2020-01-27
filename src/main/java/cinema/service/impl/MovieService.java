@@ -50,6 +50,16 @@ public class MovieService implements IMovieService {
 	}
 	
 	@Override
+	public Set<Movie> getMoviesByYear(int year) {
+		return movieRepository.findByYear(year);
+	}
+
+//	@Override
+//	public Set<Movie> getMoviesByPartialTitleAndYear(String title, int year) {
+//		return movieRepository.findByPartialTitleAndYear(title, year);
+//	}
+//	
+	@Override
 	public Set<Movie> getMoviesByActorsIdPerson(int idActor) {
 		return movieRepository.findByActorsIdPerson(idActor);
 	}
