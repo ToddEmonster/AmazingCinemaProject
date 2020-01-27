@@ -60,7 +60,7 @@ public class Person {
 		return birthdate;
 	}
 
-	public void setBirthDate(LocalDate birthdate) {
+	public void setBirthdate(LocalDate birthdate) {
 		this.birthdate = birthdate;
 	}
 

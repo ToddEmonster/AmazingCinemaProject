@@ -57,7 +57,7 @@ public class PersonService implements IPersonService {
 		var optPerson = personRepository.findById(person.getIdPerson());
 		optPerson.ifPresent(p -> {
 			p.setName(person.getName());
-			p.setBirthDate(person.getBirthdate());
+			p.setBirthdate(person.getBirthdate());
 			personRepository.flush();
 		});
 		return optPerson;
