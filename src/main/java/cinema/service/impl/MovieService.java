@@ -35,6 +35,11 @@ public class MovieService implements IMovieService {
 	public Set<Movie> getMovieByPartialTitle(String partialTitle) {
 		return movieRepository.findByTitleContainingIgnoreCase(partialTitle);
 	}
+
+	@Override
+	public Set<Movie> getByOriginalTitleContainingIgnoreCase(String partialTitle) {
+		return movieRepository.findByOriginalTitleContainingIgnoreCase(partialTitle);
+	}
 	
 	@Override
 	public Optional<Movie> getMovieById(int idMovie) {

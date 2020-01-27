@@ -10,6 +10,9 @@ public interface IMovieService {
 	List<Movie> getAllMovies();
 	Optional<Movie> getMovieById(int idMovie);
 	Set<Movie> getMovieByPartialTitle(String partialTitle);
+//	Set<Movie> getMovieByPartialOriginalTitle(String partialTitle);
+	Set<Movie> getByOriginalTitleContainingIgnoreCase(String partialTitle);
+	
 	Set<Movie> getMoviesByDirector(int idDirector);
 	Set<Movie> getMoviesByActorsIdPerson(int idPerson);
 	Set<Movie> getMoviesByYear(int year);

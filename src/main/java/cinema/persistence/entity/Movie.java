@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -25,41 +27,75 @@ public class Movie {
 	
 	private Integer idMovie;
 	private String title;
+	private String originalTitle;
+
 	private Integer year;
 	private Integer duration;
 
 	private Person director;
 	private List<Person> actors;
+	private String synopsis;
+	private ColorMode ColorMode;
 
 	public Movie() {
 		this(null,null);	
 	}
 
-	
 	public Movie( String title, Integer year, Integer duration) {
-		this(null,title, year, duration, null);
+		this(null,title,null, year, duration, null,  null, null, null);
 	}
-	public Movie( String title, Integer year, Person director) {
-		this(null,title, year, null, director);
+	
+	public Movie( String title,  Integer year) {
+		this(null,title,null, year, null, null,  null, null, null);
+	}
+	
+	public Movie( String title, String originalTitle, Integer year) {
+		this(null,title, originalTitle, year, null, null, null, null, null);
+	}
+	
+	public Movie( String title, String originalTitle, Integer year, Integer duration) {
+		this(null,title,originalTitle, year, duration, null,  null, null, null);
+	}
+	public Movie( String title, String originalTitle, Integer year, Person director) {
+		this(null,title,originalTitle, year, null, director, null, null, null);
+	}
+	public Movie( String title, String originalTitle, Integer year, String synopsis) {
+		this(null,title,originalTitle, year, null, null, null, synopsis, null);
+	}
+	public Movie( String title, String originalTitle, Integer year, Person director, String synopsis) {
+		this(null,title,originalTitle, year, null, director, null, synopsis,null);
+	}
+	
+	public Movie( String title, String originalTitle, Integer year, Integer duration, Person director) {
+		this(null, title, originalTitle, year, duration, director, null, null, null);
+	}
+	
+	public Movie( String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis) {
+		this(null, title, originalTitle, year, duration, director, null, synopsis, null);
+	}
+	public Movie( String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis, ColorMode colorMode) {
+		this(null, title, originalTitle, year, duration, director, null, synopsis, colorMode);
 	}
 
-	public Movie( String title, Integer year) {
-		this(null,title, year, null, null);
+	public Movie( String title, String originalTitle, Integer year, Integer duration, String synopsis, ColorMode colorMode) {
+		this(null, title, originalTitle, year, duration, null, null, synopsis, colorMode);
 	}
 	
-	public Movie( String title, Integer year, Integer duration, Person director) {
-		this(null, title, year, duration, director);
-	}
-	
-		public Movie(Integer id_movie, String title, Integer year, Integer duration, Person director) {
+		
+	public Movie(Integer idMovie, String title, String originalTitle, Integer year, Integer duration, Person director,
+			List<Person> actors, String synopsis, ColorMode colorMode) {
 		super();
-		this.idMovie = id_movie;
+		this.idMovie = idMovie;
 		this.title = title;
+		this.originalTitle = originalTitle;
 		this.year = year;
 		this.duration = duration;
-		this.director= director;
-		this.actors = new ArrayList<>();
+		this.director = director;
+		this.actors = actors;
+		this.synopsis = synopsis;
+		ColorMode = colorMode;
 	}
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -105,7 +141,6 @@ public class Movie {
 		return director;
 	}
 
-
 	public void setDirector(Person director) {
 		this.director = director;
 	}
@@ -122,11 +157,39 @@ public class Movie {
 	public void setActors(List<Person> actors) {
 		this.actors = actors;
 	}
+	
+	public String getOriginalTitle() {
+		return originalTitle;
+	}
 
+
+	public void setOriginalTitle(String originalTitle) {
+		this.originalTitle = originalTitle;
+	}
+
+	@Column(columnDefinition="TEXT")
+	public String getSynopsis() {
+		return synopsis;
+	}
+
+	public void setSynopsis(String synopsis) {
+		this.synopsis = synopsis;
+	}
+	
+	 @Enumerated(EnumType.ORDINAL)
+	public ColorMode getColorMode() {
+		return ColorMode;
+	}
+
+	public void setColorMode(ColorMode colorMode) {
+		ColorMode = colorMode;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder(title);
-		return builder.append(" (").append(year).append("). #").append(idMovie).toString();
+		return builder.append("[").append(year).append("] \n")
+				.append(originalTitle).append("(original title)[").append("#").append(idMovie).toString();
 	}
 	
 }

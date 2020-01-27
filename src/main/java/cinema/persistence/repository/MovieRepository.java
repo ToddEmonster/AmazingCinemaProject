@@ -13,11 +13,12 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 	Set<Movie> findByTitleAndYear(String title, Integer year1);
 	Set<Movie> findByYearBetween(Integer year1, Integer year2);
 	Set<Movie> findByTitleContainingIgnoreCase(String title);
+	Set<Movie> findByOriginalTitleContainingIgnoreCase(String title);
 	Set<Movie> findByDirector(Person director);
 	Set<Movie> findByDirectorNameEndingWith(String name);
 	Set<Movie> findByActorsNameEndingWithIgnoreCase(String name);
 	Set<Movie> findByDirectorNameEndingWithIgnoreCase(String name);
-	Set<Movie> findByTitleIgnoreCaseContaining(String name);
+//	Set<Movie> findByTitleIgnoreCaseContaining(String name);
 	Set<Movie> findByDirectorName(String name);
 //	Set<Movie> findByDirector(int id);
 	Set<Movie> findByActorsNameOrDirectorName(String actorName, String directorName );

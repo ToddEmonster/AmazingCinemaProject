@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import cinema.persistence.entity.ColorMode;
 import cinema.persistence.entity.Movie;
 import cinema.persistence.entity.Person;
 import cinema.persistence.repository.MovieRepository;
@@ -51,16 +52,36 @@ class TestMappingEnties {
 	
 	persons.forEach(repoPerson::save);
 
-	Movie joker   = new Movie("Joker", 2019, todd);	
-	Movie depart  = new Movie("The departed", 2006, 136, marty);	
-	Movie god     = new Movie("The godfather", 1972, 220, francis);	
-	Movie apo     = new Movie("Apocalypse now", 1979, francis);
-	Movie taxi    = new Movie("Taxi driver", 1976, marty);	
-	Movie raging  = new Movie("Raging bull", 1980, marty);	
-	Movie inter   = new Movie("Interstellar", 2014);
-	Movie unfor   = new Movie("Unforgiven", 1992, clint);
-	Movie million = new Movie("Million dollar baby", 2004, clint);
-	Movie mystic  = new Movie("Mystic river", 2014, clint);
+	Movie joker   = new Movie("Joker","Joker", 2019, 124, todd,
+		  "In Gotham City, mentally troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: the Joker. ",
+		  ColorMode.COLORED);	
+	Movie depart  = new Movie("Les infiltrés","The departed", 2006, 136, marty, 
+		  "An undercover cop and a mole in the police attempt to identify each other while infiltrating an Irish gang in South Boston. ",
+		  ColorMode.COLORED);	
+	Movie god     = new Movie("Le parrain","The godfather", 1972, 220, francis, 
+		  "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son. ",
+		  ColorMode.COLORED);	
+	Movie apo     = new Movie("Apocalypse now","Apocalypse now", 1979,220, francis, 
+		  "A U.S. Army officer serving in Vietnam is tasked with assassinating a renegade Special Forces Colonel who sees himself as a god. ",
+		  ColorMode.COLORED);
+	Movie taxi    = new Movie("Taxi driver","Taxi driver", 1976, 160, marty, 
+		  "A mentally unstable veteran works as a nighttime taxi driver in New York City, where the perceived decadence and sleaze fuels his urge for violent action by attempting to liberate a presidential campaign worker and an underage prostitute. ",
+		  ColorMode.COLORED);	
+	Movie raging  = new Movie("Raging bull","Raging bull", 1980, 144, marty,
+		  "The life of boxer Jake LaMotta, whose violence and temper that led him to the top in the ring destroyed his life outside of it. ",
+		  ColorMode.BLACK_WHITE);	
+	Movie inter   = new Movie("Interstellar","Interstellar", 2014, 142,
+		  "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+		  ColorMode.COLORED);
+	Movie unfor   = new Movie("Impitoyable","Unforgiven", 1992, 128, clint,
+		  "Retired Old West gunslinger William Munny (Clint Eastwood) reluctantly takes on one last job, with the help of his old partner Ned Logan (Morgan Freeman) and a young man, The \"Schofield Kid\" (Jaimz Woolvett)",
+		  ColorMode.COLORED);
+	Movie million = new Movie("Million dollar baby","Million dollar baby", 2004, 136, clint,
+			"A determined woman works with a hardened boxing trainer to become a professional. ",
+			ColorMode.COLORED);
+	Movie mystic  = new Movie("Mystic river","Mystic river", 2014, 133, clint, 
+			"The lives of three men who were childhood friends are shattered when one of them has a family tragedy. ",
+			ColorMode.COLORED);
 	List<Movie> movies = List.of(joker, depart, god, taxi, raging, inter, unfor, million, mystic);
 	
 	movies.forEach(repoMovie::save);
@@ -96,7 +117,7 @@ class TestMappingEnties {
 	@Rollback(false)
 	@Test
 	void testAddMovies() {
-		Movie batman = new Movie("The dark knight", 2008);
+		Movie batman = new Movie("Batman:The dark knight, Le chevalier noir de la nuit noire","The dark knight", 2008, 147);
 		repoMovie.save(batman);
 //		repoMovie.flush();
 		Person chris = (Person) repoPerson.findByNameContainingIgnoreCase("nolan").stream().findFirst().get();
@@ -120,7 +141,7 @@ class TestMappingEnties {
 	@Rollback(false)
 	@Test
 	void initialActorsListToMovie() {
-		var unforgiven = repoMovie.findByTitle("Unforgiven").stream().findFirst().get();
+		var unforgiven = repoMovie.findByTitle("Impitoyable").stream().findFirst().get();
 		var clint = repoPerson.findByNameContainingIgnoreCase("Eastwood").stream().findFirst().get();
 		var gene = repoPerson.findByNameContainingIgnoreCase("Hackmann").stream().findFirst().get();
 		unforgiven.setActors(List.of(clint, gene));
@@ -130,7 +151,7 @@ class TestMappingEnties {
 	@Rollback(false)
 	@Test
 	void addActorsToMovie() {
-		var unforgiven = repoMovie.findByTitle("Unforgiven").stream().findFirst().get();
+		var unforgiven = repoMovie.findByTitle("Impitoyable").stream().findFirst().get();
 		var clint = repoPerson.findByNameContainingIgnoreCase("Eastwood").stream().findFirst().get();
 		var gene = repoPerson.findByNameContainingIgnoreCase("Hackmann").stream().findFirst().get();
 		unforgiven.setActors(List.of(clint, gene));
@@ -140,7 +161,7 @@ class TestMappingEnties {
 	@Test
 	void testLazyActors() {
 		// read a movie : select the movie + it's director
-		var unforgiven = repoMovie.findByTitle("Unforgiven").stream().findFirst().get();
+		var unforgiven = repoMovie.findByTitle("Impitoyable").stream().findFirst().get();
 		var morgan= repoPerson.findByNameContainingIgnoreCase("Freeman").stream().findFirst().get();
 		unforgiven.getActors().add(morgan);		
 		repoMovie.flush();

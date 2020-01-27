@@ -46,6 +46,12 @@ public class MovieController {
 		return MovieService.getMovieByPartialTitle(partialTitle);
 	}
 	
+	@GetMapping("/byOriginalTitle")
+	@ResponseBody
+	public Set<Movie> movieByPartialOgiginalTitle(@RequestParam("t") String partialTitle) {
+		return MovieService.getByOriginalTitleContainingIgnoreCase(partialTitle);
+	}
+	
 	@GetMapping("/byDirector")
 	@ResponseBody
 	public Set<Movie> findByDirector(@RequestParam("d") int idDirector) {
@@ -58,6 +64,9 @@ public class MovieController {
 		return MovieService.getMoviesByYear(year);
 	}
 
+	 /*
+	  * getting errors with partial
+	  */
 //	@GetMapping("/byTitleYear")
 //	@ResponseBody
 //	public Set<Movie> findByPartialTitleAndYear(@RequestParam("t") String title, @RequestParam("y") int year) {
