@@ -16,14 +16,24 @@ public class Person {
 	private Integer idPerson;
 	private String name;
 	private LocalDate birthdate;
+	private String biography;
 	
+
 	public Person(Integer idPerson, String name, LocalDate birthdate) {
+		this(idPerson, name, birthdate, null);
+	}
+	
+	public Person(Integer idPerson, String name, LocalDate birthdate, String biography) {
 		super();
 		this.idPerson = idPerson;
 		this.name = name;
 		this.birthdate = birthdate;
+		this.biography = biography;
 	}
 	
+	public Person(String name, LocalDate birthdate, String biography) {
+		this(null, name, birthdate, biography);
+	}
 	public Person(String name, LocalDate birthdate) {
 		this(null, name, birthdate);
 	}
@@ -62,6 +72,15 @@ public class Person {
 
 	public void setBirthdate(LocalDate birthdate) {
 		this.birthdate = birthdate;
+	}
+	
+	@Column(columnDefinition="TEXT")
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
 	}
 
 	@Override
