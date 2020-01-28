@@ -26,4 +26,12 @@ public interface IMovieService {
 	Optional<Movie> setDirector(int idDirector, int idMovie);
 	Optional<Movie> modifyMovie(Movie movie);
 	Optional<Movie> deleteMovie(int idMovie);
+	
+//	Set<Movie> getMoviesByGenre(String genre);
+//	Optional<Movie> addGenre(int idMovie, String genre);
+//	Optional<Movie> deleteGenre(int idMovie, String genre);
+	
+	Set<Movie> getMoviesByRating(float rating);
+//	Optional<Movie> addGenre(int idMovie, float rating);	
+//	Optional<Movie> deleteGenre(int idMovie, float rating);	
 }

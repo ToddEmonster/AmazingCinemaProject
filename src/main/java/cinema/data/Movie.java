@@ -3,7 +3,6 @@ package cinema.data;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +15,8 @@ public class Movie {
 	private int duration;
 	private Person director;
 	private List<Person> actors;
+	
+	private List<String> genres;
 	 
 	public Movie() {
 		
@@ -42,6 +43,7 @@ public class Movie {
 		this.duration = duration;
 		this.director = director;
 		this.actors = new ArrayList<>();
+		this.genres = new ArrayList<>();
 	}
 
 	public String getTitle() {
@@ -99,7 +101,19 @@ public class Movie {
 		return this.actors.stream();
 	}
 	
-
+	/// For genres ///
+	public void addGenre(String genre) {
+		this.genres.add(genre);
+	}
+	
+	public Iterator<String> iteratorGenre(){
+		return this.genres.iterator();
+	}
+	
+	public Stream<String> streamGenres(){
+		return this.genres.stream();
+	}
+	
 	@Override
 	public String toString() {
 		return  title + " (" + releaseDate + (duration == 0 ? "" : ", " + duration + "mn") + ")";

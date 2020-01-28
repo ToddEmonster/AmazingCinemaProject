@@ -146,36 +146,95 @@ class TestMovie {
 	@Test
 	 void testfindByActorNameEndingWith() {
 		//given
-			var madmax = new Movie("Max max, fury road", 2015);
-			var max    = new Movie("Max max", 1978);
-			var arme   = new Movie("L'arme fatale", 1987);
-			var lion   = new Movie("Roi lion", 1978);
-			var movies = List.of(madmax, max, arme, lion);
-		    movies.forEach(entityManager::persist);
-		    
-		    var mel = new Person("Mel Gibson", LocalDate.of(1964, 02, 14));
-		    var danny = new Person("Danny Glover", LocalDate.of(1956, 06, 21));
-		    var whoopi = new Person("Whoopy Goldberg", LocalDate.of(1974, 8, 15));
-		    entityManager.persist(mel);
-		    entityManager.persist(whoopi);
-		    entityManager.persist(danny);
-		    
-		    lion.getActors().add(danny);
-		    max.getActors().add(mel);
-		    madmax.getActors().add(mel);
-		    Collections.addAll(arme.getActors(), mel, danny);
-		    
-		    entityManager.flush();
-		    //when
-		    var moviesWithMel = repoMovie.findByActorsNameEndingWithIgnoreCase("Gibson");
-		    //then
-		    assertAll(
-		    		()->assertTrue(moviesWithMel.contains(madmax)),
-		    		()->assertTrue(moviesWithMel.contains(max)),
-		    		()->assertTrue(moviesWithMel.contains(arme)),
-		    		()->assertFalse(moviesWithMel.contains(lion)));
-		    
+		var madmax = new Movie("Max max, fury road", 2015);
+		var max    = new Movie("Mad max", 1978);
+		var arme   = new Movie("L'arme fatale", 1987);
+		var lion   = new Movie("Roi lion", 1978);
+		var movies = List.of(madmax, max, arme, lion);
+	    movies.forEach(entityManager::persist);
+	    
+	    var mel = new Person("Mel Gibson", LocalDate.of(1964, 02, 14));
+	    var danny = new Person("Danny Glover", LocalDate.of(1956, 06, 21));
+	    var whoopi = new Person("Whoopy Goldberg", LocalDate.of(1974, 8, 15));
+	    entityManager.persist(mel);
+	    entityManager.persist(whoopi);
+	    entityManager.persist(danny);
+	    
+	    lion.getActors().add(danny);
+	    max.getActors().add(mel);
+	    madmax.getActors().add(mel);
+	    Collections.addAll(arme.getActors(), mel, danny);
+	    
+	    entityManager.flush();
+	    //when
+	    var moviesWithMel = repoMovie.findByActorsNameEndingWithIgnoreCase("Gibson");
+	    //then
+	    assertAll(
+	    		()->assertTrue(moviesWithMel.contains(madmax)),
+	    		()->assertTrue(moviesWithMel.contains(max)),
+	    		()->assertTrue(moviesWithMel.contains(arme)),
+	    		()->assertFalse(moviesWithMel.contains(lion))
+	    		);
 	}
+	
+	@Test
+	void testFindByRating() {
+		// given
+		var arme   = new Movie("L'arme fatale", 1987);
+		var madmax = new Movie("Max max, fury road", 2015, 4.0F);
+		var lion = new Movie("Roi lion", 1994, 5.0F);
+		var joker = new Movie("Joker", 2019, 5.0F);
+		
+		var movies = List.of(arme, madmax, lion, joker);
+		movies.forEach(entityManager::persist);
+		
+		entityManager.flush();
+		// when
+		var moviesGoodRating = repoMovie.findByRating(5.0F);
+		
+		// then
+		assertAll(
+				()->assertEquals(2, moviesGoodRating.size()),
+				()->assertTrue(moviesGoodRating.contains(lion)),
+				()->assertTrue(moviesGoodRating.contains(joker)),
+				()->assertFalse(moviesGoodRating.contains(arme))
+				);
+	}
+	
+	
+	
+	@Test
+	void testFindByGenre() {
+		// TODO réussir à reconstruire le constructeur avec genre
+		// given
+		var lion   = new Movie("Roi lion", 1994);
+		System.out.println(lion);
+//		var madmax = new Movie("Max max, fury road", 2015);
+//		var arme   = new Movie("L'arme fatale", 1987);
+//		var joker  = new Movie("Joker", 2019);
+//
+//		var movies = List.of(madmax, arme, lion, joker);
+//		movies.forEach(entityManager::persist);
+//		
+//		lion.setGenres(List.of("animation","enfants","disney"));
+//		madmax.getGenres().add("action");
+//		arme.getGenres().add("action");
+//		
+//		entityManager.flush();
+//		
+//		// when
+//		var moviesAction = repoMovie.findByGenres("action");	
+//		
+//		// then
+//		assertAll(
+//				()->assertEquals(2, moviesAction.size()),
+//				()->assertTrue(moviesAction.contains(madmax)),
+//				()->assertTrue(moviesAction.contains(arme)),
+//				()->assertFalse(moviesAction.contains(lion)),
+//				()->assertFalse(moviesAction.contains(joker))
+//				);
+	}
+	
 }
 
 

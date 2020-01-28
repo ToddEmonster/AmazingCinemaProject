@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,9 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.ManyToAny;
 
 @Entity
 @Table(name = "movies")
@@ -36,54 +33,63 @@ public class Movie {
 	private List<Person> actors;
 	private String synopsis;
 	private ColorMode ColorMode;
-
+	
+	private Float rating;
+	
 	public Movie() {
-		this(null,null);	
+		this(null, null);	
+	}
+	
+	// Title, year
+	public Movie(String title, Integer year) {
+		this(null, title, null, year, null, null, null, null, null, null);
+	}
+	
+	// Title, year, duration
+	public Movie(String title, Integer year, Integer duration) {
+		this(null, title, null, year, duration, null, null, null, null, null);
+	}
+	
+	// Title, year, rating
+	public Movie(String title, Integer year, Float rating) {
+		this(null, title, null, year, null, null, null, null, null, rating);
+	}
+	
+	public Movie(String title, String originalTitle, Integer year) {
+		this(null,title, originalTitle, year, null, null, null, null, null, null);
+	}
+	
+	public Movie(String title, String originalTitle, Integer year, Integer duration) {
+		this(null,title,originalTitle, year, duration, null,  null, null, null, null);
+	}
+	public Movie(String title, String originalTitle, Integer year, Person director) {
+		this(null,title,originalTitle, year, null, director, null, null, null, null);
+	}
+	public Movie(String title, String originalTitle, Integer year, String synopsis) {
+		this(null,title,originalTitle, year, null, null, null, synopsis, null, null);
+	}
+	public Movie(String title, String originalTitle, Integer year, Person director, String synopsis) {
+		this(null,title,originalTitle, year, null, director, null, synopsis,null, null);
+	}
+	
+	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director) {
+		this(null, title, originalTitle, year, duration, director, null, null, null, null);
+	}
+	
+	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis) {
+		this(null, title, originalTitle, year, duration, director, null, synopsis, null, null);
+	}
+	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis, ColorMode colorMode) {
+		this(null, title, originalTitle, year, duration, director, null, synopsis, colorMode, null);
 	}
 
-	public Movie( String title, Integer year, Integer duration) {
-		this(null,title,null, year, duration, null,  null, null, null);
-	}
-	
-	public Movie( String title,  Integer year) {
-		this(null,title,null, year, null, null,  null, null, null);
-	}
-	
-	public Movie( String title, String originalTitle, Integer year) {
-		this(null,title, originalTitle, year, null, null, null, null, null);
-	}
-	
-	public Movie( String title, String originalTitle, Integer year, Integer duration) {
-		this(null,title,originalTitle, year, duration, null,  null, null, null);
-	}
-	public Movie( String title, String originalTitle, Integer year, Person director) {
-		this(null,title,originalTitle, year, null, director, null, null, null);
-	}
-	public Movie( String title, String originalTitle, Integer year, String synopsis) {
-		this(null,title,originalTitle, year, null, null, null, synopsis, null);
-	}
-	public Movie( String title, String originalTitle, Integer year, Person director, String synopsis) {
-		this(null,title,originalTitle, year, null, director, null, synopsis,null);
-	}
-	
-	public Movie( String title, String originalTitle, Integer year, Integer duration, Person director) {
-		this(null, title, originalTitle, year, duration, director, null, null, null);
-	}
-	
-	public Movie( String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis) {
-		this(null, title, originalTitle, year, duration, director, null, synopsis, null);
-	}
-	public Movie( String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis, ColorMode colorMode) {
-		this(null, title, originalTitle, year, duration, director, null, synopsis, colorMode);
-	}
-
-	public Movie( String title, String originalTitle, Integer year, Integer duration, String synopsis, ColorMode colorMode) {
-		this(null, title, originalTitle, year, duration, null, null, synopsis, colorMode);
+	public Movie(String title, String originalTitle, Integer year, Integer duration, String synopsis, ColorMode colorMode) {
+		this(null, title, originalTitle, year, duration, null, null, synopsis, colorMode, null);
 	}
 	
 		
 	public Movie(Integer idMovie, String title, String originalTitle, Integer year, Integer duration, Person director,
-			List<Person> actors, String synopsis, ColorMode colorMode) {
+			List<Person> actors, String synopsis, ColorMode colorMode, Float rating) {
 		super();
 		this.idMovie = idMovie;
 		this.title = title;
@@ -94,6 +100,7 @@ public class Movie {
 		this.actors = actors;
 		this.synopsis = synopsis;
 		ColorMode = colorMode;
+		this.rating = rating;
 	}
 
 
@@ -146,10 +153,10 @@ public class Movie {
 	}
 	
 	@ManyToMany //(fetch = FetchType.EAGER)
-	 @JoinTable(name="act",
-     joinColumns= @JoinColumn(name="id_movie"),
-     inverseJoinColumns=@JoinColumn(name="id_actor")
-     )
+	@JoinTable(name="act",
+    joinColumns= @JoinColumn(name="id_movie"),
+    inverseJoinColumns=@JoinColumn(name="id_actor")
+			)
 	public List<Person> getActors() {
 		return actors;
 	}
@@ -165,6 +172,13 @@ public class Movie {
 
 	public void setOriginalTitle(String originalTitle) {
 		this.originalTitle = originalTitle;
+	}
+	public Float getRating() {
+		return rating;
+	}
+
+	public void setRating(Float rating) {
+		this.rating = rating;
 	}
 
 	@Column(columnDefinition="TEXT")

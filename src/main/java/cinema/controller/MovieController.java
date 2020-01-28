@@ -126,4 +126,19 @@ public class MovieController {
 		return MovieService.deleteMovie(idMovie);
 	}
 	
+	@GetMapping("/byRating")
+	@ResponseBody
+	public Set<Movie> findByRating(@RequestParam("r") float rating) {
+		return MovieService.getMoviesByRating(rating);
+	}
+	
+//	@GetMapping("/byGenre")
+//	@ResponseBody
+//	public Set<Movie> findByGenre(@RequestParam("g") String genre) {
+//		return MovieService.getMoviesByGenre(genre);
+//	}
+	
+	
+	
+	
 }
