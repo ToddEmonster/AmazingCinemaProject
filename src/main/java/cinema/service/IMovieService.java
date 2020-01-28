@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import cinema.persistence.entity.ColorMode;
+import cinema.persistence.entity.Genre;
 import cinema.persistence.entity.Movie;
 
 public interface IMovieService {
@@ -28,6 +29,7 @@ public interface IMovieService {
 	Set<Movie> getMoviesByRating(float rating);
 	Set<Movie> getMoviesByClassification(String classification);
 	Set<Movie> getMoviesByColorMode(ColorMode colorMode);
+	Set<Movie> getMoviesByGenre(Genre genre);
 	
 	/*
 	 * CREATE/UPDATE
@@ -38,12 +40,10 @@ public interface IMovieService {
 	Optional<Movie> modifyMovie(Movie movie);
 	Optional<Movie> deleteMovie(int idMovie);
 	
-//	Set<Movie> getMoviesByGenre(String genre);
-//	Optional<Movie> addGenre(int idMovie, String genre);
-//	Optional<Movie> deleteGenre(int idMovie, String genre);
 	
 	Optional<Movie> setRating(int idMovie, float rating);
 	Optional<Movie> setClassification(int idMovie, String classification);
 	Optional<Movie> setSynopsis(int idMovie, String synopsis);
 	Optional<Movie> setColorMode(int idMovie, List<ColorMode> colorMode);
+	Optional<Movie> setGenre(int idMovie, List<Genre> genre);
 }

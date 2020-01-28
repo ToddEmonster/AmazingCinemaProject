@@ -5,6 +5,7 @@ import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import cinema.persistence.entity.ColorMode;
+import cinema.persistence.entity.Genre;
 import cinema.persistence.entity.Movie;
 import cinema.persistence.entity.Person;
 
@@ -30,5 +31,5 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 	Set<Movie> findByRating(float rating);
 	Set<Movie> findByClassification(String classification);
 	Set<Movie> findByColorMode(ColorMode colorMode);
-	
+	Set<Movie> findByGenre(Genre genre);
 }

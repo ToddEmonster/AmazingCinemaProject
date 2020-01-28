@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cinema.persistence.entity.ColorMode;
+import cinema.persistence.entity.Genre;
 import cinema.persistence.entity.Movie;
 import cinema.service.IMovieService;
 
@@ -97,7 +98,7 @@ public class MovieController {
 	
 	@GetMapping("/byColorMode")
 	@ResponseBody
-	public Set<Movie> findByColorMode(@RequestParam("c") ColorMode colorMode) {
+	public Set<Movie> findByColorMode(@RequestParam("c")  ColorMode colorMode) {
 		return MovieService.getMoviesByColorMode(colorMode);
 	}
 	
@@ -106,12 +107,12 @@ public class MovieController {
 	public Set<Movie> findByClassification(@RequestParam("c") String classification) {
 		return MovieService.getMoviesByClassification(classification);
 	}
-	
-//	@GetMapping("/byGenre")
-//	@ResponseBody
-//	public Set<Movie> findByGenre(@RequestParam("g") String genre) {
-//		return MovieService.getMoviesByGenre(genre);
-//	}
+
+	@GetMapping("/byGenre")
+	@ResponseBody
+	public Set<Movie> findByGenre(@RequestParam("g") Genre genre) {
+		return MovieService.getMoviesByGenre(genre);
+	}
 	
 	
 	/*
@@ -173,6 +174,13 @@ public class MovieController {
 	public Optional<Movie> setColorMode(@RequestParam("m") int idMovie, 
 										@RequestParam("c") List<ColorMode> colorMode) {
 		return MovieService.setColorMode(idMovie, colorMode);
+	}
+
+	@PutMapping("/setGenre")
+	@ResponseBody
+	public Optional<Movie> setGenre(@RequestParam("m") int idMovie, 
+									@RequestParam("g") List<Genre> genre) {
+		return MovieService.setGenre(idMovie, genre);
 	}
 	
 

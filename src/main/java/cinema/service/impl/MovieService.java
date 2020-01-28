@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cinema.persistence.entity.ColorMode;
+import cinema.persistence.entity.Genre;
 import cinema.persistence.entity.Movie;
 import cinema.persistence.repository.MovieRepository;
 import cinema.persistence.repository.PersonRepository;
@@ -90,8 +91,14 @@ public class MovieService implements IMovieService {
 	
 
 	@Override
-	public Set<Movie> getMoviesByColorMode(ColorMode colorMode) {
+	public Set<Movie> getMoviesByColorMode( ColorMode colorMode) {
 		return movieRepository.findByColorMode(colorMode);
+	}
+
+
+	@Override
+	public Set<Movie> getMoviesByGenre(Genre genre) {
+		return movieRepository.findByGenre(genre);
 	}
 
 	
@@ -189,6 +196,17 @@ public class MovieService implements IMovieService {
 			movieRepository.flush();
 		});
 		return movieOptToColored;
+	}
+
+
+	@Override
+	public Optional<Movie> setGenre(int idMovie, List<Genre> genre) {
+		var movieOptToGenre= movieRepository.findById(idMovie);
+		movieOptToGenre.ifPresent(m -> {
+			movieOptToGenre.get().setGenre(genre);
+			movieRepository.flush();
+		});
+		return movieOptToGenre;
 	}
 
 

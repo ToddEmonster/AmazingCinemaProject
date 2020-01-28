@@ -1,13 +1,10 @@
 package cinema.persistence.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,7 +33,7 @@ public class Movie {
 	private String classification;
 
 	private List<ColorMode> colorMode;
-	
+	private List<Genre> genre;
 	private Float rating;
 	
 	public Movie() {
@@ -93,7 +90,13 @@ public class Movie {
 		
 	public Movie(Integer idMovie, String title, String originalTitle, Integer year, Integer duration, Person director,
 			List<Person> actors, String synopsis, List<ColorMode> colorMode, Float rating) {
-		super();
+		this(null, title, originalTitle, year, duration, null, null, synopsis, synopsis, colorMode, null, rating);
+	}
+
+
+	public Movie(Integer idMovie, String title, String originalTitle, Integer year, Integer duration, Person director,
+			List<Person> actors, String synopsis, String classification, List<ColorMode> colorMode, List<Genre> genre,
+			Float rating) {
 		this.idMovie = idMovie;
 		this.title = title;
 		this.originalTitle = originalTitle;
@@ -102,7 +105,9 @@ public class Movie {
 		this.director = director;
 		this.actors = actors;
 		this.synopsis = synopsis;
+		this.classification = classification;
 		this.colorMode = colorMode;
+		this.genre = genre;
 		this.rating = rating;
 	}
 
@@ -198,14 +203,19 @@ public class Movie {
 		return colorMode;
 	}
 
-//	 @Enumerated(EnumType.ORDINAL)
-//	public ColorMode getColorMode() {
-//		return ColorMode;
-//	}
-
 	public void setColorMode(List<ColorMode> colorMode) {
 		this.colorMode = colorMode;
 	}
+
+	 @ElementCollection(targetClass=Genre.class)
+	public List<Genre> getGenre() {
+		return genre;
+	}
+
+	public void setGenre(List<Genre> genre) {
+		this.genre = genre;
+	}
+
 	
 	public String getClassification() {
 		return classification;
@@ -214,7 +224,6 @@ public class Movie {
 	public void setClassification(String classification) {
 		this.classification = classification;
 	}
-
 	
 	@Override
 	public String toString() {
