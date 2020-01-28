@@ -96,7 +96,7 @@ public class MovieService implements IMovieService {
 
 	
 	/*
-	 * UPDATE
+	 * CREATE / UPDATE
 	 */
 	@Override
 	public Movie addMovie(Movie movie) {
@@ -181,6 +181,16 @@ public class MovieService implements IMovieService {
 		return movieOptToResume;
 	}
 	
+	@Override
+	public Optional<Movie> setColorMode(int idMovie, List<ColorMode> colorMode) {
+		var movieOptToColored= movieRepository.findById(idMovie);
+		movieOptToColored.ifPresent(m -> {
+			movieOptToColored.get().setColorMode(colorMode);
+			movieRepository.flush();
+		});
+		return movieOptToColored;
+	}
+
 
 	/*
 	 * DELETE
@@ -194,6 +204,7 @@ public class MovieService implements IMovieService {
 		});
 		return movieToDelete;
 	}
+
 
 	
 	

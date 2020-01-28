@@ -8,6 +8,10 @@ import cinema.persistence.entity.ColorMode;
 import cinema.persistence.entity.Movie;
 
 public interface IMovieService {
+	
+	/*
+	 * READ
+	 */
 	List<Movie> getAllMovies();
 	Optional<Movie> getMovieById(int idMovie);
 	Set<Movie> getMoviesByPartialTitle(String partialTitle);
@@ -21,7 +25,13 @@ public interface IMovieService {
 //	Set<Movie> getMoviesByPartialTitleAndYear(String title, int year);
 	Set<Movie> getMoviesByActorsNameEndingWithIgnoreCase(String name);
 	Set<Movie> getMovieByTitleContainingIgnoreCaseAndYear(String name, int year);
+	Set<Movie> getMoviesByRating(float rating);
+	Set<Movie> getMoviesByClassification(String classification);
+	Set<Movie> getMoviesByColorMode(ColorMode colorMode);
 	
+	/*
+	 * CREATE/UPDATE
+	 */
 	Movie addMovie(Movie movie);
 	Optional<Movie> addActor(int idActor, int idMovie);
 	Optional<Movie> setDirector(int idDirector, int idMovie);
@@ -32,10 +42,8 @@ public interface IMovieService {
 //	Optional<Movie> addGenre(int idMovie, String genre);
 //	Optional<Movie> deleteGenre(int idMovie, String genre);
 	
-	Set<Movie> getMoviesByRating(float rating);
 	Optional<Movie> setRating(int idMovie, float rating);
-	Set<Movie> getMoviesByClassification(String classification);
 	Optional<Movie> setClassification(int idMovie, String classification);
-	Set<Movie> getMoviesByColorMode(ColorMode colorMode);
 	Optional<Movie> setSynopsis(int idMovie, String synopsis);
+	Optional<Movie> setColorMode(int idMovie, List<ColorMode> colorMode);
 }

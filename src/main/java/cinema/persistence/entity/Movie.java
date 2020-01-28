@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -34,7 +35,7 @@ public class Movie {
 	private String synopsis;
 	private String classification;
 
-	private ColorMode ColorMode;
+	private List<ColorMode> colorMode;
 	
 	private Float rating;
 	
@@ -81,17 +82,17 @@ public class Movie {
 	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis) {
 		this(null, title, originalTitle, year, duration, director, null, synopsis, null, null);
 	}
-	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis, ColorMode colorMode) {
+	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis,  List<ColorMode> colorMode) {
 		this(null, title, originalTitle, year, duration, director, null, synopsis, colorMode, null);
 	}
 
-	public Movie(String title, String originalTitle, Integer year, Integer duration, String synopsis, ColorMode colorMode) {
+	public Movie(String title, String originalTitle, Integer year, Integer duration, String synopsis,  List<ColorMode> colorMode) {
 		this(null, title, originalTitle, year, duration, null, null, synopsis, colorMode, null);
 	}
 	
 		
 	public Movie(Integer idMovie, String title, String originalTitle, Integer year, Integer duration, Person director,
-			List<Person> actors, String synopsis, ColorMode colorMode, Float rating) {
+			List<Person> actors, String synopsis, List<ColorMode> colorMode, Float rating) {
 		super();
 		this.idMovie = idMovie;
 		this.title = title;
@@ -101,7 +102,7 @@ public class Movie {
 		this.director = director;
 		this.actors = actors;
 		this.synopsis = synopsis;
-		ColorMode = colorMode;
+		this.colorMode = colorMode;
 		this.rating = rating;
 	}
 
@@ -192,13 +193,18 @@ public class Movie {
 		this.synopsis = synopsis;
 	}
 	
-	 @Enumerated(EnumType.ORDINAL)
-	public ColorMode getColorMode() {
-		return ColorMode;
+    @ElementCollection(targetClass=ColorMode.class)
+    public List<ColorMode> getColorMode() {
+		return colorMode;
 	}
 
-	public void setColorMode(ColorMode colorMode) {
-		ColorMode = colorMode;
+//	 @Enumerated(EnumType.ORDINAL)
+//	public ColorMode getColorMode() {
+//		return ColorMode;
+//	}
+
+	public void setColorMode(List<ColorMode> colorMode) {
+		this.colorMode = colorMode;
 	}
 	
 	public String getClassification() {
