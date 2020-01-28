@@ -78,8 +78,16 @@ public class PersonService implements IPersonService {
 
 	@Override
 	public Set<Person> getPersonsByNationality(Nationality nationality) {
-		// TODO Vérifier que ça passe bien
 		return personRepository.findByNationality(nationality);
+	}
+
+	@Override
+	public Optional<Person> setNationality(int idPerson, Nationality nationality) {
+		var optPerson = personRepository.findById(idPerson);
+		optPerson.ifPresent(p-> 
+				p.getNationality().add(nationality)
+				);
+		return optPerson;
 	}
 	
 }

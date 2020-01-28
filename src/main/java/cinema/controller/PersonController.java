@@ -83,6 +83,11 @@ public class PersonController {
 		return PersonService.getPersonsByNationality(Nationality.valueOf(nationality));
 	}
 	
-	
+	@PutMapping("/setNationality")
+	@ResponseBody
+	public Optional<Person> setNationality(@RequestParam("id") int idPerson,
+										   @RequestParam("n") String nationality){
+		return PersonService.setNationality(idPerson, Nationality.valueOf(nationality));
+	}
 }
 	

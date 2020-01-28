@@ -23,4 +23,5 @@ public interface IPersonService {
 	Optional<Person> deletePerson(int idPerson);
 	
 	Set<Person> getPersonsByNationality(Nationality nationality);
+	Optional<Person> setNationality(int idPerson, Nationality nationality);
 }
