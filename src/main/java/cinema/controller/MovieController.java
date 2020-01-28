@@ -43,19 +43,19 @@ public class MovieController {
 	@GetMapping("/byTitle")
 	@ResponseBody
 	public Set<Movie> movieByPartialTitle(@RequestParam("t") String partialTitle) {
-		return MovieService.getMovieByPartialTitle(partialTitle);
+		return MovieService.getMoviesByPartialTitle(partialTitle);
 	}
 	
 	@GetMapping("/byFullTitle")
 	@ResponseBody
 	public Set<Movie> movieByTitle(@RequestParam("t") String title) {
-		return MovieService.getMovieByTitle(title);
+		return MovieService.getMoviesByTitle(title);
 	}
 	
 	@GetMapping("/byOriginalTitle")
 	@ResponseBody
 	public Set<Movie> movieByPartialOgiginalTitle(@RequestParam("t") String partialTitle) {
-		return MovieService.getByOriginalTitleContainingIgnoreCase(partialTitle);
+		return MovieService.getMoviesByOriginalTitleContainingIgnoreCase(partialTitle);
 	}
 	
 	@GetMapping("/byDirector")
@@ -131,6 +131,14 @@ public class MovieController {
 	public Set<Movie> findByRating(@RequestParam("r") float rating) {
 		return MovieService.getMoviesByRating(rating);
 	}
+	
+	@PutMapping("/setRating")
+	@ResponseBody
+	public Optional<Movie> setRating(@RequestParam("m") int idMovie, 
+									@RequestParam("r") float rating) {
+		return MovieService.setRating(idMovie, rating);
+	}
+
 	
 //	@GetMapping("/byGenre")
 //	@ResponseBody

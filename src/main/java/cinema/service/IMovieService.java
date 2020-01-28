@@ -9,10 +9,10 @@ import cinema.persistence.entity.Movie;
 public interface IMovieService {
 	List<Movie> getAllMovies();
 	Optional<Movie> getMovieById(int idMovie);
-	Set<Movie> getMovieByPartialTitle(String partialTitle);
-	Set<Movie> getMovieByTitle(String title);
+	Set<Movie> getMoviesByPartialTitle(String partialTitle);
+	Set<Movie> getMoviesByTitle(String title);
 //	Set<Movie> getMovieByPartialOriginalTitle(String partialTitle);
-	Set<Movie> getByOriginalTitleContainingIgnoreCase(String partialTitle);
+	Set<Movie> getMoviesByOriginalTitleContainingIgnoreCase(String partialTitle);
 	
 	Set<Movie> getMoviesByDirector(int idDirector);
 	Set<Movie> getMoviesByActorsIdPerson(int idPerson);
@@ -32,6 +32,5 @@ public interface IMovieService {
 //	Optional<Movie> deleteGenre(int idMovie, String genre);
 	
 	Set<Movie> getMoviesByRating(float rating);
-//	Optional<Movie> addGenre(int idMovie, float rating);	
-//	Optional<Movie> deleteGenre(int idMovie, float rating);	
+	Optional<Movie> setRating(int idMovie, float rating);
 }

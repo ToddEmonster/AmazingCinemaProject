@@ -168,11 +168,11 @@ public class Movie {
 	public String getOriginalTitle() {
 		return originalTitle;
 	}
-
-
+	
 	public void setOriginalTitle(String originalTitle) {
 		this.originalTitle = originalTitle;
 	}
+	
 	public Float getRating() {
 		return rating;
 	}

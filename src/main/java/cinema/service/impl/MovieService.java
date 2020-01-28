@@ -32,17 +32,17 @@ public class MovieService implements IMovieService {
 	}
 
 	@Override
-	public Set<Movie> getMovieByTitle(String title) {
+	public Set<Movie> getMoviesByTitle(String title) {
 		return movieRepository.findByTitle(title);
 	}
 	
 	@Override
-	public Set<Movie> getMovieByPartialTitle(String partialTitle) {
+	public Set<Movie> getMoviesByPartialTitle(String partialTitle) {
 		return movieRepository.findByTitleContainingIgnoreCase(partialTitle);
 	}
 
 	@Override
-	public Set<Movie> getByOriginalTitleContainingIgnoreCase(String partialTitle) {
+	public Set<Movie> getMoviesByOriginalTitleContainingIgnoreCase(String partialTitle) {
 		return movieRepository.findByOriginalTitleContainingIgnoreCase(partialTitle);
 	}
 	
@@ -144,7 +144,16 @@ public class MovieService implements IMovieService {
 	public Set<Movie> getMoviesByRating(float rating) {
 		return movieRepository.findByRating(rating);
 	}
-	
+
+	@Override
+	public Optional<Movie> setRating(int idMovie, float rating) {
+		var movieOptToRate = movieRepository.findById(idMovie);
+		movieOptToRate.ifPresent(m -> {
+			movieOptToRate.get().setRating(rating);
+			movieRepository.flush();
+		});
+		return movieOptToRate;
+	}
 	
 	
 
