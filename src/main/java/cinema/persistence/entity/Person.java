@@ -17,7 +17,6 @@ public class Person {
 	private String name;
 	private LocalDate birthdate;
 	private String biography;
-	
 
 	public Person(Integer idPerson, String name, LocalDate birthdate) {
 		this(idPerson, name, birthdate, null);

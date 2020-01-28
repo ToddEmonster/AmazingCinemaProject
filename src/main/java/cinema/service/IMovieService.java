@@ -10,6 +10,7 @@ public interface IMovieService {
 	List<Movie> getAllMovies();
 	Optional<Movie> getMovieById(int idMovie);
 	Set<Movie> getMovieByPartialTitle(String partialTitle);
+	Set<Movie> getMovieByTitle(String title);
 //	Set<Movie> getMovieByPartialOriginalTitle(String partialTitle);
 	Set<Movie> getByOriginalTitleContainingIgnoreCase(String partialTitle);
 	
@@ -18,6 +19,7 @@ public interface IMovieService {
 	Set<Movie> getMoviesByYear(int year);
 //	Set<Movie> getMoviesByPartialTitleAndYear(String title, int year);
 	Set<Movie> getMoviesByActorsNameEndingWithIgnoreCase(String name);
+	Set<Movie> getMovieByTitleContainingIgnoreCaseAndYear(String name, int year);
 	
 	Movie addMovie(Movie movie);
 	Optional<Movie> addActor(int idActor, int idMovie);

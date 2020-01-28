@@ -32,6 +32,11 @@ public class MovieService implements IMovieService {
 	}
 
 	@Override
+	public Set<Movie> getMovieByTitle(String title) {
+		return movieRepository.findByTitle(title);
+	}
+	
+	@Override
 	public Set<Movie> getMovieByPartialTitle(String partialTitle) {
 		return movieRepository.findByTitleContainingIgnoreCase(partialTitle);
 	}
@@ -39,6 +44,11 @@ public class MovieService implements IMovieService {
 	@Override
 	public Set<Movie> getByOriginalTitleContainingIgnoreCase(String partialTitle) {
 		return movieRepository.findByOriginalTitleContainingIgnoreCase(partialTitle);
+	}
+	
+	@Override
+	public Set<Movie> getMovieByTitleContainingIgnoreCaseAndYear(String partialTitle, int year) {
+		return movieRepository.findByTitleContainingIgnoreCaseAndYear(partialTitle, year);
 	}
 	
 	@Override

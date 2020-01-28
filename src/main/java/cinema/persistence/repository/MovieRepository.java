@@ -23,6 +23,6 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 //	Set<Movie> findByDirector(int id);
 	Set<Movie> findByActorsNameOrDirectorName(String actorName, String directorName );
 	Set<Movie> findByActorsIdPerson(int idActor);
-//	Set<Movie> findByPartialTitleAndYear(String title, int year);
+	Set<Movie> findByTitleContainingIgnoreCaseAndYear(String title, int year);
 	Set<Movie> findByYear(int year);
 }
