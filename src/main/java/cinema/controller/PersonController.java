@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cinema.persistence.entity.Nationality;
 import cinema.persistence.entity.Person;
 import cinema.service.IPersonService;
 
@@ -35,25 +36,25 @@ public class PersonController {
 	
 	@GetMapping("/{id}")
 	@ResponseBody
-	public Optional<Person> PersonById(@RequestParam("id") int idPerson) {
+	public Optional<Person> personById(@RequestParam("id") int idPerson) {
 		return PersonService.getPersonById(idPerson);
 	}
 	
 	@GetMapping("/byEndName")
 	@ResponseBody
-	public Set<Person> PersonByNameEnding(@RequestParam("n") String name) {
+	public Set<Person> personsByNameEnding(@RequestParam("n") String name) {
 		return PersonService.getPersonsByNameEndingWithIgnoreCase(name);
 	}
 	
 	@GetMapping("/byNameContaining")
 	@ResponseBody
-	public Set<Person> PersonByNameContaining(@RequestParam("n") String partialName) {
+	public Set<Person> personsByNameContaining(@RequestParam("n") String partialName) {
 		return PersonService.getPersonsByNameContainingIgnoreCase(partialName);
 	}
 	
 	@GetMapping("/byBirtdateYear")
 	@ResponseBody
-	public Set<Person> PersonByBirthdateYear(@RequestParam("y") int year) {
+	public Set<Person> personByBirthdateYear(@RequestParam("y") int year) {
 		return PersonService.getPersonsByBirthdateYear(year);
 	}
 	
@@ -75,6 +76,13 @@ public class PersonController {
 	public Optional<Person> deletePerson(@PathVariable("id") int idPerson) {
 		return PersonService.deletePerson(idPerson);
 	}
+	
+	@GetMapping("/byNationality")
+	@ResponseBody
+	public Set<Person> findByNationality(@RequestParam("n") String nationality) {
+		return PersonService.getPersonsByNationality(Nationality.valueOf(nationality));
+	}
+	
 	
 }
 	

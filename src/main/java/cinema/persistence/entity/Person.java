@@ -1,8 +1,12 @@
 package cinema.persistence.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,21 +22,33 @@ public class Person {
 	private LocalDate birthdate;
 	private String biography;
 
-	public Person(Integer idPerson, String name, LocalDate birthdate) {
-		this(idPerson, name, birthdate, null);
-	}
+	private List<Nationality> nationality = new ArrayList<Nationality>();
 	
-	public Person(Integer idPerson, String name, LocalDate birthdate, String biography) {
+	public Person() {
+		this(null, null);
+	}
+	public Person(Integer idPerson, String name, LocalDate birthdate, String biography, List<Nationality> nationality) {
 		super();
 		this.idPerson = idPerson;
 		this.name = name;
 		this.birthdate = birthdate;
 		this.biography = biography;
+		this.nationality = nationality;
 	}
 	
-	public Person(String name, LocalDate birthdate, String biography) {
-		this(null, name, birthdate, biography);
+	public Person(Integer idPerson, String name, LocalDate birthdate) {
+		this(idPerson, name, birthdate, null, null);
 	}
+		
+	public Person(String name, LocalDate birthdate, String biography) {
+		this(null, name, birthdate, biography, null);
+	}
+	
+	
+	public Person(String name, LocalDate birthdate, List<Nationality> nationality) {
+		this(null, name, birthdate, null, nationality);
+	}
+	
 	public Person(String name, LocalDate birthdate) {
 		this(null, name, birthdate);
 	}
@@ -41,10 +57,7 @@ public class Person {
 		this(null, name, null);
 	}
 	
-	public Person() {
-		
-	}
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_person")
@@ -80,6 +93,15 @@ public class Person {
 
 	public void setBiography(String biography) {
 		this.biography = biography;
+	}
+	
+	@ElementCollection(targetClass=Nationality.class)
+	public List<Nationality> getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(List<Nationality> nationality) {
+		this.nationality = nationality;
 	}
 
 	@Override

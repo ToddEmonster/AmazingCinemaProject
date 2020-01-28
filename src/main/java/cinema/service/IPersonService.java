@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.data.jpa.repository.Query;
 
+import cinema.persistence.entity.Nationality;
 import cinema.persistence.entity.Person;
 
 public interface IPersonService {
@@ -21,4 +22,5 @@ public interface IPersonService {
 	Optional<Person> modifyPerson(Person person);
 	Optional<Person> deletePerson(int idPerson);
 	
+	Set<Person> getPersonsByNationality(Nationality nationality);
 }

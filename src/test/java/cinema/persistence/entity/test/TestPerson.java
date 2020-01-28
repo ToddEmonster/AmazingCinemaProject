@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
@@ -13,7 +14,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import cinema.persistence.entity.Nationality;
 import cinema.persistence.entity.Person;
+import cinema.persistence.repository.MovieRepository;
 import cinema.persistence.repository.PersonRepository;
 
 
@@ -52,5 +55,41 @@ class TestPerson {
 		System.out.println("find by name => " + dataRead);
 		
 	}
-
+	
+	@Test
+	void testSetNationality() {
+		// given
+		var todd = new Person("Todd Phillips", LocalDate.of(1970, 12, 20), List.of(Nationality.FR));
+		var clint = new Person("Clint Eastwood", LocalDate.of(1970, 12, 20));
+		var joon = new Person("Bong Joon Ho", LocalDate.of(1969, 9, 14));
+		entityManager.persist(todd);
+		entityManager.persist(clint);
+		
+		joon.setNationality(List.of(Nationality.KR));
+		
+		entityManager.flush();
+		
+		assertAll(
+				()->assertEquals(List.of(Nationality.FR), todd.getNationality()),
+				()->assertEquals(List.of(Nationality.KR), joon.getNationality())
+				);
+	}
+	
+	@Test
+	void testFindByNationality() {
+		var todd = new Person("Todd Phillips", LocalDate.of(1970, 12, 20), List.of(Nationality.FR));
+		var clint = new Person("Clint Eastwood", LocalDate.of(1970, 12, 20), List.of(Nationality.US));
+		var joon = new Person("Bong Joon Ho", LocalDate.of(1969, 9, 14), List.of(Nationality.FR, Nationality.KR));
+		var movies = List.of(todd, clint, joon);
+		movies.forEach(entityManager::persist);
+		entityManager.flush();
+		
+		var personsFrench = repoPerson.findByNationality(Nationality.FR);
+		var personsKorean = repoPerson.findByNationality(Nationality.KR);
+		
+		assertAll(
+				()->assertEquals(2, personsFrench.size(), "2 personnes nationalité FR"),
+				()->assertTrue(personsKorean.contains(joon) && personsKorean.size()==1, "Joon Ho seule personne nationalité KR")
+				);
+	}
 }

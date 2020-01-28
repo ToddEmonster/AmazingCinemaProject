@@ -202,31 +202,6 @@ class TestMovie {
 	}
 	
 	@Test
-	void testModifyRating() {
-		// given
-		var arme   = new Movie("L'arme fatale", 1987);
-		var madmax = new Movie("Max max, fury road", 2015, 4.0F);
-		var lion = new Movie("Roi lion", 1994, 5.0F);
-		
-		var movies = List.of(arme, madmax);
-		movies.forEach(entityManager::persist);
-		
-		entityManager.flush();
-		// when
-		madmax.setRating(3.0F);
-		
-		
-		// then
-//		assertAll(
-//				()->assertEquals(2, moviesGoodRating.size()),
-//				()->assertTrue(moviesGoodRating.contains(lion)),
-//				()->assertTrue(moviesGoodRating.contains(joker)),
-//				()->assertFalse(moviesGoodRating.contains(arme))
-//				);
-	}
-	
-	
-	@Test
 	void testFindByGenre() {
 		// TODO réussir à reconstruire le constructeur avec genre
 		// given

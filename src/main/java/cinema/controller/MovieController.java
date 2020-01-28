@@ -55,7 +55,7 @@ public class MovieController {
 	
 	@GetMapping("/byOriginalTitle")
 	@ResponseBody
-	public Set<Movie> movieByPartialOgiginalTitle(@RequestParam("t") String partialTitle) {
+	public Set<Movie> movieByPartialOriginalTitle(@RequestParam("t") String partialTitle) {
 		return MovieService.getMoviesByOriginalTitleContainingIgnoreCase(partialTitle);
 	}
 	

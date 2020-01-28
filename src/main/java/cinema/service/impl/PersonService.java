@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cinema.persistence.entity.Nationality;
 import cinema.persistence.entity.Person;
 import cinema.persistence.repository.PersonRepository;
 import cinema.service.IPersonService;
@@ -58,6 +59,8 @@ public class PersonService implements IPersonService {
 		optPerson.ifPresent(p -> {
 			p.setName(person.getName());
 			p.setBirthdate(person.getBirthdate());
+			p.setBiography(person.getBiography());
+			p.setNationality(person.getNationality());
 			personRepository.flush();
 		});
 		return optPerson;
@@ -71,6 +74,12 @@ public class PersonService implements IPersonService {
 			personRepository.flush();
 		});
 		return personToDelete;
+	}
+
+	@Override
+	public Set<Person> getPersonsByNationality(Nationality nationality) {
+		// TODO Vérifier que ça passe bien
+		return personRepository.findByNationality(nationality);
 	}
 	
 }

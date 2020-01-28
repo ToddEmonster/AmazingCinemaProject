@@ -5,19 +5,21 @@ import java.time.MonthDay;
 import java.util.Objects;
 import java.util.OptionalInt;
 
+
 public class Person {
+	
 	private String name;
 	private LocalDate birthdate;
 	
-	
+	public Person(String name) {
+		this(name, null);
+	}
+		
 	public Person(String name, LocalDate birthdate) {
 		super();
 		this.name = name;
 		this.birthdate = birthdate;
-	}
 
-	public Person(String name) {
-		this(name, null);
 	}
 
 	public String getName() {
@@ -36,6 +38,7 @@ public class Person {
 		this.birthdate = birthdate;
 	}
 	
+
 	/**
 	 * calculate age with LocalDate, MOnthDay and Person birthDate 
 	 * @return age of Person

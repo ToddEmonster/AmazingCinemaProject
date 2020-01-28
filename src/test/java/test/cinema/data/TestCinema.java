@@ -34,7 +34,7 @@ class TestCinema {
 		persons = new ArrayList<>();
 		Collections.addAll(persons, 
 				 new Person("Joaquin Phoenix", LocalDate.of(1974, 10, 28)),
-				 new Person("G�rard Darmon", LocalDate.of(1948, 02, 29)),
+				 new Person("Gerard Darmon", LocalDate.of(1948, 02, 29)),
 				 new Person("Clint Eastwood", LocalDate.of(1930, 05, 31)),
 				 new Person("Todd Phillips", LocalDate.of(1970, 12, 20)),
 				 new Person("Gene Hackman", LocalDate.of(1930, 06, 14)),

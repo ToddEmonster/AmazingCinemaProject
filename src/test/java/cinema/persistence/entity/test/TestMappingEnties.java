@@ -19,6 +19,7 @@ import org.springframework.test.annotation.Rollback;
 
 import cinema.persistence.entity.ColorMode;
 import cinema.persistence.entity.Movie;
+import cinema.persistence.entity.Nationality;
 import cinema.persistence.entity.Person;
 import cinema.persistence.repository.MovieRepository;
 import cinema.persistence.repository.PersonRepository;
@@ -32,8 +33,8 @@ class TestMappingEnties {
 	@Autowired
 	PersonRepository repoPerson;
 	
-//	@Autowired
-//	EntityManager entityManager;
+	@Autowired
+	EntityManager entityManager;
 	
 	@Rollback(false)
 	@Test
@@ -47,13 +48,13 @@ class TestMappingEnties {
 			"Todd Phillips was born on December 20, 1970 in Brooklyn, New York City, New York, USA as Todd Bunzl.");
 	Person clint   = new Person("Clint Eastwood", LocalDate.of(1940, 12, 14),
 			"Clint Eastwood was born May 31, 1930 in San Francisco, the son of Clinton Eastwood Sr., a manufacturing executive for Georgia-Pacific Corporation, and Ruth Wood, a housewife turned IBM operator.");
-	Person marty   = new Person("Marty Scorsese", LocalDate.of(1970, 12, 24),
+	Person martin   = new Person("Martin Scorsese", LocalDate.of(1970, 12, 24),
 			"Martin Charles Scorsese was born on November 17, 1942 in Queens, New York City, to Catherine Scorsese (née Cappa) and Charles Scorsese.");
 	Person francis = new Person("Francis F Coppola", LocalDate.of(1940, 03, 17));
 	Person gene    = new Person("Gene Hackmann", LocalDate.of(1940, 03, 17));
 	Person morgan  = new Person("Morgan Freeman", LocalDate.of(1940, 03, 17));
 	
-	List<Person> persons = List.of(joaquin, gerard, todd, clint, marty, francis, gene, morgan);
+	List<Person> persons = List.of(joaquin, gerard, todd, clint, martin, francis, gene, morgan);
 	
 	persons.forEach(repoPerson::save);
 
@@ -172,9 +173,18 @@ class TestMappingEnties {
 		repoMovie.flush();
 	}
 	
-	
+	@Rollback(false)
+//	@Test
+	void AddPersons() {
+		Person martin   = new Person("Martin Scorsese", LocalDate.of(1970, 12, 24),List.of(Nationality.US, Nationality.IT));
+		var joon = new Person("Bong Joon Ho", LocalDate.of(1969, 9, 14), List.of(Nationality.KR));
+		List<Person> persons = List.of(joon, martin);
+		persons.forEach(repoPerson::save);		
+		
+		
+		
+	}
 
-	
 }
 
 
