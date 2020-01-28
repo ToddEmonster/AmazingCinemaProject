@@ -90,6 +90,19 @@ public class MovieController {
 		return MovieService.getMoviesByActorsNameEndingWithIgnoreCase(nameActor);
 	}	
 	
+	@GetMapping("/byRating")
+	@ResponseBody
+	public Set<Movie> findByRating(@RequestParam("r") float rating) {
+		return MovieService.getMoviesByRating(rating);
+	}
+	
+	@GetMapping("/byClassification")
+	@ResponseBody
+	public Set<Movie> findByClassification(@RequestParam("c") String classification) {
+		return MovieService.getMoviesByClassification(classification);
+	}
+	
+	
 	
 	// Methodes Put, Post, Delete
 	@PostMapping
@@ -125,24 +138,20 @@ public class MovieController {
 	public Optional<Movie> deleteMovie(@PathVariable("id") int idMovie) {
 		return MovieService.deleteMovie(idMovie);
 	}
-	
-	@GetMapping("/byRating")
-	@ResponseBody
-	public Set<Movie> findByRating(@RequestParam("r") float rating) {
-		return MovieService.getMoviesByRating(rating);
-	}
-	
-	@GetMapping("/byClassification")
-	@ResponseBody
-	public Set<Movie> findByClassification(@RequestParam("c") String classification) {
-		return MovieService.getMoviesByClassification(classification);
-	}
+
 	
 	@PutMapping("/setRating")
 	@ResponseBody
 	public Optional<Movie> setRating(@RequestParam("m") int idMovie, 
 									@RequestParam("r") float rating) {
 		return MovieService.setRating(idMovie, rating);
+	}
+	
+	@PutMapping("/setClassification")
+	@ResponseBody
+	public Optional<Movie> setClassification(@RequestParam("m") int idMovie, 
+											@RequestParam("c") String classification) {
+		return MovieService.setClassification(idMovie, classification);
 	}
 
 	

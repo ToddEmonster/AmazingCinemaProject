@@ -69,11 +69,6 @@ public class MovieService implements IMovieService {
 		return movieRepository.findByYear(year);
 	}
 
-//	@Override
-//	public Set<Movie> getMoviesByPartialTitleAndYear(String title, int year) {
-//		return movieRepository.findByPartialTitleAndYear(title, year);
-//	}
-//	
 	@Override
 	public Set<Movie> getMoviesByActorsIdPerson(int idActor) {
 		return movieRepository.findByActorsIdPerson(idActor);
@@ -83,6 +78,12 @@ public class MovieService implements IMovieService {
 	public Set<Movie> getMoviesByActorsNameEndingWithIgnoreCase(String nameActor) {
 		return movieRepository.findByActorsNameEndingWithIgnoreCase(nameActor);
 	}
+
+	@Override
+	public Set<Movie> getMoviesByClassification(String classification) {
+		return movieRepository.findByClassification(classification);
+	}
+
 	
 	@Override
 	public Movie addMovie(Movie movie) {
@@ -156,9 +157,15 @@ public class MovieService implements IMovieService {
 	}
 
 	@Override
-	public Set<Movie> getMoviesByClassification(String classification) {
-		return movieRepository.findByClassification(classification);
+	public Optional<Movie> setClassification(int idMovie, String classification) {
+		var movieOptToClassify= movieRepository.findById(idMovie);
+		movieOptToClassify.ifPresent(m -> {
+			movieOptToClassify.get().setClassification(classification);
+			movieRepository.flush();
+		});
+		return movieOptToClassify;
 	}
+
 
 //	@Override
 //	public Optional<Movie> addSynopsis(String synopsis, int idMovie) {
