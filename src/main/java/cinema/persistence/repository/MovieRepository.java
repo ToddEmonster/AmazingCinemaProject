@@ -27,5 +27,6 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 	Set<Movie> findByYear(int year);
 	
 	Set<Movie> findByRating(float rating);
+	Set<Movie> findByClassification(String classification);
 	
 }

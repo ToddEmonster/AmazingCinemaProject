@@ -32,6 +32,8 @@ public class Movie {
 	private Person director;
 	private List<Person> actors;
 	private String synopsis;
+	private String classification;
+
 	private ColorMode ColorMode;
 	
 	private Float rating;
@@ -198,6 +200,15 @@ public class Movie {
 	public void setColorMode(ColorMode colorMode) {
 		ColorMode = colorMode;
 	}
+	
+	public String getClassification() {
+		return classification;
+	}
+
+	public void setClassification(String classification) {
+		this.classification = classification;
+	}
+
 	
 	@Override
 	public String toString() {

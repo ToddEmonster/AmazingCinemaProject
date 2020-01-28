@@ -132,6 +132,12 @@ public class MovieController {
 		return MovieService.getMoviesByRating(rating);
 	}
 	
+	@GetMapping("/byClassification")
+	@ResponseBody
+	public Set<Movie> findByClassification(@RequestParam("c") String classification) {
+		return MovieService.getMoviesByClassification(classification);
+	}
+	
 	@PutMapping("/setRating")
 	@ResponseBody
 	public Optional<Movie> setRating(@RequestParam("m") int idMovie, 

@@ -33,4 +33,5 @@ public interface IMovieService {
 	
 	Set<Movie> getMoviesByRating(float rating);
 	Optional<Movie> setRating(int idMovie, float rating);
+	Set<Movie> getMoviesByClassification(String classification);
 }

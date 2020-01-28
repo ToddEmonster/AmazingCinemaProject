@@ -154,6 +154,17 @@ public class MovieService implements IMovieService {
 		});
 		return movieOptToRate;
 	}
+
+	@Override
+	public Set<Movie> getMoviesByClassification(String classification) {
+		return movieRepository.findByClassification(classification);
+	}
+
+//	@Override
+//	public Optional<Movie> addSynopsis(String synopsis, int idMovie) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	
 	
 
