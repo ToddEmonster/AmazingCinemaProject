@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cinema.persistence.entity.ColorMode;
 import cinema.persistence.entity.Movie;
 import cinema.persistence.repository.MovieRepository;
 import cinema.persistence.repository.PersonRepository;
@@ -26,6 +27,9 @@ public class MovieService implements IMovieService {
 	PersonRepository personRepository;
 
 	
+	/*
+	 * READ
+	 */
 	@Override
 	public List<Movie> getAllMovies() {
 		return movieRepository.findAll();
@@ -83,8 +87,17 @@ public class MovieService implements IMovieService {
 	public Set<Movie> getMoviesByClassification(String classification) {
 		return movieRepository.findByClassification(classification);
 	}
+	
+
+	@Override
+	public Set<Movie> getMoviesByColorMode(ColorMode colorMode) {
+		return movieRepository.findByColorMode(colorMode);
+	}
 
 	
+	/*
+	 * UPDATE
+	 */
 	@Override
 	public Movie addMovie(Movie movie) {
 		Movie movieSaved = movieRepository.save(movie);
@@ -131,16 +144,7 @@ public class MovieService implements IMovieService {
 		return optMovie;
 	}
 	
-	@Override
-	public Optional<Movie> deleteMovie(int idMovie) {
-		var movieToDelete = movieRepository.findById(idMovie);
-		movieToDelete.ifPresent(m -> {
-			movieRepository.delete(m);
-			movieRepository.flush();
-		});
-		return movieToDelete;
-	}
-
+	
 	@Override
 	public Set<Movie> getMoviesByRating(float rating) {
 		return movieRepository.findByRating(rating);
@@ -165,13 +169,32 @@ public class MovieService implements IMovieService {
 		});
 		return movieOptToClassify;
 	}
+	
 
+	@Override
+	public Optional<Movie> setSynopsis(int idMovie, String synopsis) {
+		var movieOptToResume= movieRepository.findById(idMovie);
+		movieOptToResume.ifPresent(m -> {
+			movieOptToResume.get().setSynopsis(synopsis);
+			movieRepository.flush();
+		});
+		return movieOptToResume;
+	}
+	
 
-//	@Override
-//	public Optional<Movie> addSynopsis(String synopsis, int idMovie) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	/*
+	 * DELETE
+	 */
+	@Override
+	public Optional<Movie> deleteMovie(int idMovie) {
+		var movieToDelete = movieRepository.findById(idMovie);
+		movieToDelete.ifPresent(m -> {
+			movieRepository.delete(m);
+			movieRepository.flush();
+		});
+		return movieToDelete;
+	}
+
 	
 	
 

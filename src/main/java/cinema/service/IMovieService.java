@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import cinema.persistence.entity.ColorMode;
 import cinema.persistence.entity.Movie;
 
 public interface IMovieService {
@@ -35,4 +36,6 @@ public interface IMovieService {
 	Optional<Movie> setRating(int idMovie, float rating);
 	Set<Movie> getMoviesByClassification(String classification);
 	Optional<Movie> setClassification(int idMovie, String classification);
+	Set<Movie> getMoviesByColorMode(ColorMode colorMode);
+	Optional<Movie> setSynopsis(int idMovie, String synopsis);
 }

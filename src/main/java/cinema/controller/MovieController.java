@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cinema.persistence.entity.ColorMode;
 import cinema.persistence.entity.Movie;
 import cinema.service.IMovieService;
 
@@ -70,9 +71,7 @@ public class MovieController {
 		return MovieService.getMoviesByYear(year);
 	}
 
-	 /*
-	  * getting errors with partial
-	  */
+	
 	@GetMapping("/byTitleYear")
 	@ResponseBody
 	public Set<Movie> findByPartialTitleAndYear(@RequestParam("t") String title, @RequestParam("y") int year) {
@@ -96,22 +95,37 @@ public class MovieController {
 		return MovieService.getMoviesByRating(rating);
 	}
 	
+	@GetMapping("/byColorMode")
+	@ResponseBody
+	public Set<Movie> findByColorMode(@RequestParam("c") ColorMode colorMode) {
+		return MovieService.getMoviesByColorMode(colorMode);
+	}
+	
 	@GetMapping("/byClassification")
 	@ResponseBody
 	public Set<Movie> findByClassification(@RequestParam("c") String classification) {
 		return MovieService.getMoviesByClassification(classification);
 	}
 	
+//	@GetMapping("/byGenre")
+//	@ResponseBody
+//	public Set<Movie> findByGenre(@RequestParam("g") String genre) {
+//		return MovieService.getMoviesByGenre(genre);
+//	}
 	
 	
-	// Methodes Put, Post, Delete
+	/*
+	 * POST
+	 */
 	@PostMapping
 	@ResponseBody
 	public Movie addMovie(@RequestBody Movie movie) {
 		return MovieService.addMovie(movie);
 	}
 	
-	
+	/*
+	 * PUT
+	 */
 	// Dans un Controller, toujours renvoyer un truc et pas un void pour voir
 	// Mettre un alias pour RequestParam permet de s'affranchir de l'ordre d'appel
 	@PutMapping("/addActor")
@@ -133,13 +147,6 @@ public class MovieController {
 		return MovieService.modifyMovie(movie);
 	}
 	
-	@DeleteMapping("/{id}")
-	@ResponseBody
-	public Optional<Movie> deleteMovie(@PathVariable("id") int idMovie) {
-		return MovieService.deleteMovie(idMovie);
-	}
-
-	
 	@PutMapping("/setRating")
 	@ResponseBody
 	public Optional<Movie> setRating(@RequestParam("m") int idMovie, 
@@ -153,15 +160,24 @@ public class MovieController {
 											@RequestParam("c") String classification) {
 		return MovieService.setClassification(idMovie, classification);
 	}
+	
+	@PutMapping("/setSynopsis")
+	@ResponseBody
+	public Optional<Movie> setSynopsis(@RequestParam("m") int idMovie, 
+									   @RequestParam("s") String synopsis) {
+		return MovieService.setSynopsis(idMovie, synopsis);
+	}
+	
 
-	
-//	@GetMapping("/byGenre")
-//	@ResponseBody
-//	public Set<Movie> findByGenre(@RequestParam("g") String genre) {
-//		return MovieService.getMoviesByGenre(genre);
-//	}
-	
-	
+	/*
+	 * DELETE
+	 */
+	@DeleteMapping("/{id}")
+	@ResponseBody
+	public Optional<Movie> deleteMovie(@PathVariable("id") int idMovie) {
+		return MovieService.deleteMovie(idMovie);
+	}
+
 	
 	
 }
