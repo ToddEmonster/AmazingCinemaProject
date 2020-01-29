@@ -1,6 +1,8 @@
 package cinema.persistence.entity;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -35,6 +38,9 @@ public class Movie {
 	private List<ColorMode> colorMode;
 	private List<Genre> genre;
 	private Float rating;
+	
+	private Set<Role> roles = new HashSet<Role>();
+	
 	
 	public Movie() {
 		this(null, null);	
@@ -161,14 +167,21 @@ public class Movie {
 	}
 	
 	@ManyToMany //(fetch = FetchType.EAGER)
-	@JoinTable(name="act",
-    joinColumns= @JoinColumn(name="id_movie"),
-    inverseJoinColumns=@JoinColumn(name="id_actor")
+	@JoinTable(
+		name="act",
+	    joinColumns=@JoinColumn(name="id_movie"),
+	    inverseJoinColumns=@JoinColumn(name="id_actor")
 			)
 	public List<Person> getActors() {
 		return actors;
 	}
 
+//	@Join
+//	public List<Person> getActors() {
+//	return actors;
+//	}
+	
+	
 	public void setActors(List<Person> actors) {
 		this.actors = actors;
 	}
@@ -224,6 +237,16 @@ public class Movie {
 	public void setClassification(String classification) {
 		this.classification = classification;
 	}
+	
+	@OneToMany(mappedBy = "pk.movie")
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	
 	@Override
 	public String toString() {

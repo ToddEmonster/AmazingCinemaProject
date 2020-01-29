@@ -21,6 +21,7 @@ import cinema.persistence.entity.ColorMode;
 import cinema.persistence.entity.Movie;
 import cinema.persistence.entity.Nationality;
 import cinema.persistence.entity.Person;
+import cinema.persistence.entity.Role;
 import cinema.persistence.repository.MovieRepository;
 import cinema.persistence.repository.PersonRepository;
 
@@ -176,15 +177,41 @@ class TestMappingEnties {
 	@Rollback(false)
 //	@Test
 	void AddPersons() {
-		Person martin   = new Person("Martin Scorsese", LocalDate.of(1970, 12, 24),List.of(Nationality.US, Nationality.IT));
-		var joon = new Person("Bong Joon Ho", LocalDate.of(1969, 9, 14), List.of(Nationality.KR));
+		Person martin   = new Person("Martin Scorsese", LocalDate.of(1970, 12, 24));
+		martin.setNationality(List.of(Nationality.US, Nationality.IT));
+		var joon = new Person("Bong Joon Ho", LocalDate.of(1969, 9, 14));
+		joon.setNationality(List.of(Nationality.KR));
 		List<Person> persons = List.of(joon, martin);
 		persons.forEach(repoPerson::save);		
-		
-		
-		
 	}
 
+	@Test
+	void testRole() {
+		Person clint = new Person("Clint Eastwood", LocalDate.of(1940, 12, 14));
+		Person gene    = new Person("Gene Hackmann", LocalDate.of(1940, 03, 17));
+		Movie impitoyable = new Movie("Impitoyable","Unforgiven", 1992, 128, clint);
+		entityManager.persist(gene);
+		entityManager.persist(clint);
+		entityManager.persist(impitoyable);
+		
+		// clint en permier role
+		
+		var firstRole = new Role();
+		firstRole.setMovie(impitoyable);
+		firstRole.setActor(clint);
+		
+		System.out.println(firstRole);
+		
+//		impitoyable.setRoles( 
+//				new Role()
+//				);
+		
+		
+//		secondRole = ; // gene
+		
+//		impitoyable.setRoles(roles);
+	}
+	
 }
 
 

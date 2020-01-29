@@ -59,14 +59,14 @@ class TestPerson {
 	@Test
 	void testSetNationality() {
 		// given
-		var todd = new Person("Todd Phillips", LocalDate.of(1970, 12, 20), List.of(Nationality.FR));
+		var todd = new Person("Todd Phillips", LocalDate.of(1970, 12, 20));
 		var clint = new Person("Clint Eastwood", LocalDate.of(1970, 12, 20));
 		var joon = new Person("Bong Joon Ho", LocalDate.of(1969, 9, 14));
-		entityManager.persist(todd);
-		entityManager.persist(clint);
-		
+		todd.setNationality(List.of(Nationality.FR));		
 		joon.setNationality(List.of(Nationality.KR));
 		
+		entityManager.persist(todd);
+		entityManager.persist(clint);
 		entityManager.flush();
 		
 		assertAll(
@@ -77,9 +77,12 @@ class TestPerson {
 	
 	@Test
 	void testFindByNationality() {
-		var todd = new Person("Todd Phillips", LocalDate.of(1970, 12, 20), List.of(Nationality.FR));
-		var clint = new Person("Clint Eastwood", LocalDate.of(1970, 12, 20), List.of(Nationality.US));
-		var joon = new Person("Bong Joon Ho", LocalDate.of(1969, 9, 14), List.of(Nationality.FR, Nationality.KR));
+		var todd = new Person("Todd Phillips", LocalDate.of(1970, 12, 20));
+		todd.setNationality(List.of(Nationality.FR));
+		var clint = new Person("Clint Eastwood", LocalDate.of(1970, 12, 20));
+		clint.setNationality(List.of(Nationality.US));
+		var joon = new Person("Bong Joon Ho", LocalDate.of(1969, 9, 14));
+		joon.setNationality(List.of(Nationality.FR, Nationality.KR));
 		var movies = List.of(todd, clint, joon);
 		movies.forEach(entityManager::persist);
 		entityManager.flush();

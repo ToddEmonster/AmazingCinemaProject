@@ -2,8 +2,9 @@ package cinema.persistence.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,35 +24,36 @@ public class Person {
 	private LocalDate birthdate;
 	private String biography;
 
-	private List<Nationality> nationality = new ArrayList<Nationality>();
+	private List<Nationality> nationality;
+	
+	private Set<Role> roles;
+	
 	
 	public Person() {
 		this(null, null);
 	}
-	public Person(Integer idPerson, String name, LocalDate birthdate, String biography, List<Nationality> nationality) {
+	
+	public Person(Integer idPerson, String name, LocalDate birthdate, String biography) {
 		super();
 		this.idPerson = idPerson;
 		this.name = name;
 		this.birthdate = birthdate;
 		this.biography = biography;
-		this.nationality = nationality;
+		this.nationality = new ArrayList<Nationality>();
+		this.roles = new HashSet<Role>();
 	}
 	
 	public Person(Integer idPerson, String name, LocalDate birthdate) {
-		this(idPerson, name, birthdate, null, null);
+		this(idPerson, name, birthdate, null);
 	}
 		
 	public Person(String name, LocalDate birthdate, String biography) {
-		this(null, name, birthdate, biography, null);
+		this(null, name, birthdate, biography);
 	}
 	
-	
-	public Person(String name, LocalDate birthdate, List<Nationality> nationality) {
-		this(null, name, birthdate, null, nationality);
-	}
 	
 	public Person(String name, LocalDate birthdate) {
-		this(null, name, birthdate);
+		this(null, name, birthdate, null);
 	}
 	
 	public Person(String name) {
@@ -102,6 +105,15 @@ public class Person {
 
 	public void setNationality(List<Nationality> nationality) {
 		this.nationality = nationality;
+	}
+	
+	@OneToMany(mappedBy = "pk.actor")
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	@Override
