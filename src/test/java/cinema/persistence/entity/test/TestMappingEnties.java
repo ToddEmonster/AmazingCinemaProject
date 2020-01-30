@@ -6,7 +6,9 @@ package cinema.persistence.entity.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
@@ -22,6 +24,7 @@ import cinema.persistence.entity.Movie;
 import cinema.persistence.entity.Nationality;
 import cinema.persistence.entity.Person;
 import cinema.persistence.entity.Role;
+import cinema.persistence.entity.RoleId;
 import cinema.persistence.repository.MovieRepository;
 import cinema.persistence.repository.PersonRepository;
 
@@ -38,7 +41,7 @@ class TestMappingEnties {
 	EntityManager entityManager;
 	
 	@Rollback(false)
-	@Test
+	@Test 
 	void test() {
 	
 	Person joaquin = new Person("Joaquin Phoenix", LocalDate.of(1974, 10, 11),
@@ -145,35 +148,35 @@ class TestMappingEnties {
 		System.out.println(data1);
 	}
 	
-	@Rollback(false)
-	@Test
-	void initialActorsListToMovie() {
-		var unforgiven = repoMovie.findByTitle("Impitoyable").stream().findFirst().get();
-		var clint = repoPerson.findByNameContainingIgnoreCase("Eastwood").stream().findFirst().get();
-		var gene = repoPerson.findByNameContainingIgnoreCase("Hackmann").stream().findFirst().get();
-		unforgiven.setActors(List.of(clint, gene));
-		repoMovie.flush();
-	}
+//	@Rollback(false)
+//	@Test
+//	void initialActorsListToMovie() {
+//		var unforgiven = repoMovie.findByTitle("Impitoyable").stream().findFirst().get();
+//		var clint = repoPerson.findByNameContainingIgnoreCase("Eastwood").stream().findFirst().get();
+//		var gene = repoPerson.findByNameContainingIgnoreCase("Hackmann").stream().findFirst().get();
+//		unforgiven.setActors(List.of(clint, gene));
+//		repoMovie.flush();
+//	}
 	
-	@Rollback(false)
-	@Test
-	void addActorsToMovie() {
-		var unforgiven = repoMovie.findByTitle("Impitoyable").stream().findFirst().get();
-		var clint = repoPerson.findByNameContainingIgnoreCase("Eastwood").stream().findFirst().get();
-		var gene = repoPerson.findByNameContainingIgnoreCase("Hackmann").stream().findFirst().get();
-		unforgiven.setActors(List.of(clint, gene));
-		repoMovie.flush();
-	}
-	
-	@Test
-	void testLazyActors() {
-		// read a movie : select the movie + it's director
-		var unforgiven = repoMovie.findByTitle("Impitoyable").stream().findFirst().get();
-		var morgan= repoPerson.findByNameContainingIgnoreCase("Freeman").stream().findFirst().get();
-		unforgiven.getActors().add(morgan);		
-		repoMovie.flush();
-	}
-	
+//	@Rollback(false)
+//	@Test
+//	void addActorsToMovie() {
+//		var unforgiven = repoMovie.findByTitle("Impitoyable").stream().findFirst().get();
+//		var clint = repoPerson.findByNameContainingIgnoreCase("Eastwood").stream().findFirst().get();
+//		var gene = repoPerson.findByNameContainingIgnoreCase("Hackmann").stream().findFirst().get();
+//		unforgiven.setActors(List.of(clint, gene));
+//		repoMovie.flush();
+//	}
+//	
+//	@Test
+//	void testLazyActors() {
+//		// read a movie : select the movie + it's director
+//		var unforgiven = repoMovie.findByTitle("Impitoyable").stream().findFirst().get();
+//		var morgan= repoPerson.findByNameContainingIgnoreCase("Freeman").stream().findFirst().get();
+//		unforgiven.getActors().add(morgan);		
+//		repoMovie.flush();
+//	}
+//	
 	@Rollback(false)
 //	@Test
 	void AddPersons() {
@@ -196,12 +199,21 @@ class TestMappingEnties {
 		
 		// clint en permier role
 		
-		var firstRole = new Role();
-		firstRole.setMovie(impitoyable);
-		firstRole.setActor(clint);
+//		impitoyable.setActors(List.of(gene));
+//		System.out.println(impitoyable);
+//		System.out.println("\nGETACTORS(): " + impitoyable.getActors());
+//		
+		var impitoyableRoles = new HashSet<Role>() ;
+//		var unRoleId = new 
+		impitoyable.getRoles().add(new Role());
+//		impitoyableRoles.add(new Role(impitoyable.getIdMovie(), clint.getIdPerson()));
+//		impitoyable.setRoles(Set.);
 		
-		System.out.println(firstRole);
-		
+////		firstRole.getPk().setMovie(impitoyable);
+////		firstRole.setActor(clint);
+//		
+//		System.out.println(firstRole);
+//		
 //		impitoyable.setRoles( 
 //				new Role()
 //				);

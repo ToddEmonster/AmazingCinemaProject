@@ -5,7 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-public class RoleId {
+public class RoleId implements java.io.Serializable {
 	/***
 	 * The composed key to Role 
 	 */
@@ -22,12 +22,12 @@ public class RoleId {
 		this.movie = movie;
 	}
 	
-	
 	@ManyToOne
 	@JoinColumn(name = "id_actor", nullable = false)
 	public Person getActor() {
 		return actor;
 	}
+	
 	public void setActor(Person actor) {
 		this.actor = actor;
 	}

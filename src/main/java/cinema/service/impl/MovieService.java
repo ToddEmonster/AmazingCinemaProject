@@ -147,7 +147,6 @@ public class MovieService implements IMovieService {
 			m.setDirector(movie.getDirector());
 			movieRepository.flush();
 		});
-		//
 		return optMovie;
 	}
 	
@@ -224,30 +223,4 @@ public class MovieService implements IMovieService {
 	}
 
 
-	
-	
-
-//	@Override
-//	public Set<Movie> getMoviesByGenre(String genre) {
-//		// TODO Auto-generated method stub
-//		return movieRepository.findByGenres(genre);
-//	}
-//
-//	@Override
-//	public Optional<Movie> addGenre(int idMovie, String genre) {
-//		// TODO Auto-generated method stub
-////		var genres = movieRepository.findById(idMovie).get().getGenres();
-//		
-//		
-//		return null;
-//	}
-//
-//	@Override
-//	public Optional<Movie> deleteGenre(int idMovie, String genre) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-	
-	
 }

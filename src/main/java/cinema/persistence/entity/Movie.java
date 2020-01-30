@@ -1,8 +1,12 @@
 package cinema.persistence.entity;
 
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -17,6 +21,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -48,55 +53,56 @@ public class Movie {
 	
 	// Title, year
 	public Movie(String title, Integer year) {
-		this(null, title, null, year, null, null, null, null, null, null);
+		this(null, title, null, year, null, null, null, null, null, null, null, null);
 	}
 	
 	// Title, year, duration
 	public Movie(String title, Integer year, Integer duration) {
-		this(null, title, null, year, duration, null, null, null, null, null);
+		this(null, title, null, year, duration, null, null, null, null, null, null, null);
 	}
 	
 	// Title, year, rating
 	public Movie(String title, Integer year, Float rating) {
-		this(null, title, null, year, null, null, null, null, null, rating);
+		this(null, title, null, year, null, null, null, null, null, null, null, rating);
 	}
 	
 	public Movie(String title, String originalTitle, Integer year) {
-		this(null,title, originalTitle, year, null, null, null, null, null, null);
+		this(null,title, originalTitle, year, null, null, null, null, null, null, null, null);
 	}
 	
 	public Movie(String title, String originalTitle, Integer year, Integer duration) {
-		this(null,title,originalTitle, year, duration, null,  null, null, null, null);
+		this(null,title,originalTitle, year, duration, null,  null, null, null, null, null, null);
 	}
 	public Movie(String title, String originalTitle, Integer year, Person director) {
-		this(null,title,originalTitle, year, null, director, null, null, null, null);
+		this(null,title,originalTitle, year, null, director, null, null, null, null, null, null);
 	}
 	public Movie(String title, String originalTitle, Integer year, String synopsis) {
-		this(null,title,originalTitle, year, null, null, null, synopsis, null, null);
+		this(null,title,originalTitle, year, null, null, null, synopsis, null, null, null, null);
 	}
 	public Movie(String title, String originalTitle, Integer year, Person director, String synopsis) {
-		this(null,title,originalTitle, year, null, director, null, synopsis,null, null);
+		this(null,title,originalTitle, year, null, director, null, synopsis, null, null, null, null);
 	}
 	
 	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director) {
-		this(null, title, originalTitle, year, duration, director, null, null, null, null);
+		this(null, title, originalTitle, year, duration, director, null, null, null, null, null, null);
 	}
 	
 	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis) {
-		this(null, title, originalTitle, year, duration, director, null, synopsis, null, null);
+		this(null, title, originalTitle, year, duration, director, null, synopsis, null, null, null, null);
 	}
 	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis,  List<ColorMode> colorMode) {
-		this(null, title, originalTitle, year, duration, director, null, synopsis, colorMode, null);
+		this(null, title, originalTitle, year, duration, director, null, synopsis, null, colorMode, null, null);
 	}
 
-	public Movie(String title, String originalTitle, Integer year, Integer duration, String synopsis,  List<ColorMode> colorMode) {
-		this(null, title, originalTitle, year, duration, null, null, synopsis, colorMode, null);
+	public Movie(String title, String originalTitle, Integer year, Integer duration, String synopsis, List<ColorMode> colorMode) {
+		this(null, title, originalTitle, year, duration, null, null, synopsis, null, colorMode, null, null);
 	}
 	
 		
-	public Movie(Integer idMovie, String title, String originalTitle, Integer year, Integer duration, Person director,
+	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director,
 			List<Person> actors, String synopsis, List<ColorMode> colorMode, Float rating) {
-		this(null, title, originalTitle, year, duration, null, null, synopsis, synopsis, colorMode, null, rating);
+		this(null, title, originalTitle, year, duration, director, 
+				actors, synopsis, null, colorMode, null, rating);
 	}
 
 
@@ -109,7 +115,7 @@ public class Movie {
 		this.year = year;
 		this.duration = duration;
 		this.director = director;
-		this.actors = actors;
+		this.actors = actors;	
 		this.synopsis = synopsis;
 		this.classification = classification;
 		this.colorMode = colorMode;
@@ -166,25 +172,41 @@ public class Movie {
 		this.director = director;
 	}
 	
-	@ManyToMany //(fetch = FetchType.EAGER)
-	@JoinTable(
-		name="act",
-	    joinColumns=@JoinColumn(name="id_movie"),
-	    inverseJoinColumns=@JoinColumn(name="id_actor")
-			)
+	// TODO 
+	@ElementCollection
+	@Transient
 	public List<Person> getActors() {
-		return actors;
+//		var actors = this.getRoles().stream()
+//			.filter(Objects::nonNull)
+//			.map(role -> role.getPk().getActor())
+//			.collect(Collectors.toList());	
+		return actors ;
 	}
 
-//	@Join
+	// VERSION SANS ROLES
+//	@ManyToMany //(fetch = FetchType.EAGER)
+//	@JoinTable(
+//		name="act",
+//	    joinColumns=@JoinColumn(name="id_movie"),
+//	    inverseJoinColumns=@JoinColumn(name="id_actor")
+//			)
 //	public List<Person> getActors() {
-//	return actors;
-//	}
-	
+//		return actors ;
 	
 	public void setActors(List<Person> actors) {
-		this.actors = actors;
+	this.actors = actors;
 	}
+
+	@OneToMany(mappedBy = "pk.movie")
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}	
+
+	
 	
 	public String getOriginalTitle() {
 		return originalTitle;
@@ -238,15 +260,19 @@ public class Movie {
 		this.classification = classification;
 	}
 	
-	@OneToMany(mappedBy = "pk.movie")
-	public Set<Role> getRoles() {
-		return roles;
-	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
 
+	
+	
+//	// AVEC ROLES V1
+//	@ElementCollection
+//	public List<Person> getActors() {
+//		var actors = this.getRoles().stream()
+//			.filter(Objects::nonNull)
+//			.map(role -> role.getPk().getActor())
+//			.collect(Collectors.toList());	
+//		return actors ;
+//	}
 	
 	@Override
 	public String toString() {

@@ -143,39 +143,39 @@ class TestMovie {
 		System.out.println(francis);
 	}
 	
-	@Test
-	 void testfindByActorNameEndingWith() {
-		//given
-		var madmax = new Movie("Max max, fury road", 2015);
-		var max    = new Movie("Mad max", 1978);
-		var arme   = new Movie("L'arme fatale", 1987);
-		var lion   = new Movie("Roi lion", 1978);
-		var movies = List.of(madmax, max, arme, lion);
-	    movies.forEach(entityManager::persist);
-	    
-	    var mel = new Person("Mel Gibson", LocalDate.of(1964, 02, 14));
-	    var danny = new Person("Danny Glover", LocalDate.of(1956, 06, 21));
-	    var whoopi = new Person("Whoopy Goldberg", LocalDate.of(1974, 8, 15));
-	    entityManager.persist(mel);
-	    entityManager.persist(whoopi);
-	    entityManager.persist(danny);
-	    
-	    lion.getActors().add(danny);
-	    max.getActors().add(mel);
-	    madmax.getActors().add(mel);
-	    Collections.addAll(arme.getActors(), mel, danny);
-	    
-	    entityManager.flush();
-	    //when
-	    var moviesWithMel = repoMovie.findByActorsNameEndingWithIgnoreCase("Gibson");
-	    //then
-	    assertAll(
-	    		()->assertTrue(moviesWithMel.contains(madmax)),
-	    		()->assertTrue(moviesWithMel.contains(max)),
-	    		()->assertTrue(moviesWithMel.contains(arme)),
-	    		()->assertFalse(moviesWithMel.contains(lion))
-	    		);
-	}
+//	@Test
+//	 void testfindByActorNameEndingWith() {
+//		//given
+//		var madmax = new Movie("Max max, fury road", 2015);
+//		var max    = new Movie("Mad max", 1978);
+//		var arme   = new Movie("L'arme fatale", 1987);
+//		var lion   = new Movie("Roi lion", 1978);
+//		var movies = List.of(madmax, max, arme, lion);
+//	    movies.forEach(entityManager::persist);
+//	    
+//	    var mel = new Person("Mel Gibson", LocalDate.of(1964, 02, 14));
+//	    var danny = new Person("Danny Glover", LocalDate.of(1956, 06, 21));
+//	    var whoopi = new Person("Whoopy Goldberg", LocalDate.of(1974, 8, 15));
+//	    entityManager.persist(mel);
+//	    entityManager.persist(whoopi);
+//	    entityManager.persist(danny);
+//	    
+//	    lion.getActors().add(danny);
+//	    max.getActors().add(mel);
+//	    madmax.getActors().add(mel);
+//	    Collections.addAll(arme.getActors(), mel, danny);
+//	    
+//	    entityManager.flush();
+//	    //when
+//	    var moviesWithMel = repoMovie.findByActorsNameEndingWithIgnoreCase("Gibson");
+//	    //then
+//	    assertAll(
+//	    		()->assertTrue(moviesWithMel.contains(madmax)),
+//	    		()->assertTrue(moviesWithMel.contains(max)),
+//	    		()->assertTrue(moviesWithMel.contains(arme)),
+//	    		()->assertFalse(moviesWithMel.contains(lion))
+//	    		);
+//	}
 	
 	@Test
 	void testFindByRating() {

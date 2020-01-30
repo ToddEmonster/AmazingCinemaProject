@@ -26,34 +26,36 @@ public class Person {
 
 	private List<Nationality> nationality;
 	
-	private Set<Role> roles;
+	private Set<Role> roles = new HashSet<Role>();
 	
 	
 	public Person() {
 		this(null, null);
 	}
 	
-	public Person(Integer idPerson, String name, LocalDate birthdate, String biography) {
+	public Person(Integer idPerson, String name, LocalDate birthdate, String biography
+			, Set<Role> roles
+			) {
 		super();
 		this.idPerson = idPerson;
 		this.name = name;
 		this.birthdate = birthdate;
 		this.biography = biography;
 		this.nationality = new ArrayList<Nationality>();
-		this.roles = new HashSet<Role>();
+		this.roles = roles;
 	}
 	
 	public Person(Integer idPerson, String name, LocalDate birthdate) {
-		this(idPerson, name, birthdate, null);
+		this(idPerson, name, birthdate, null, null);
 	}
 		
 	public Person(String name, LocalDate birthdate, String biography) {
-		this(null, name, birthdate, biography);
+		this(null, name, birthdate, biography, null);
 	}
 	
 	
 	public Person(String name, LocalDate birthdate) {
-		this(null, name, birthdate, null);
+		this(null, name, birthdate, null, null);
 	}
 	
 	public Person(String name) {
