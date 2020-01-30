@@ -33,7 +33,7 @@ public class Movie {
 	private String synopsis;
 	private String classification;
 
-	private List<ColorMode> colorMode;
+	private ColorMode colorMode;
 	private List<Genre> genre;
 	private Float rating;
 	
@@ -41,10 +41,6 @@ public class Movie {
 		this(null, null);	
 	}
 	
-	// Title, year
-	public Movie(String title, Integer year) {
-		this(null, title, null, year, null, null, null, null, null, null);
-	}
 	
 	// Title, year, duration
 	public Movie(String title, Integer year, Integer duration) {
@@ -56,47 +52,162 @@ public class Movie {
 		this(null, title, null, year, null, null, null, null, null, rating);
 	}
 	
-	public Movie(String title, String originalTitle, Integer year) {
-		this(null,title, originalTitle, year, null, null, null, null, null, null);
-	}
-	
-	public Movie(String title, String originalTitle, Integer year, Integer duration) {
-		this(null,title,originalTitle, year, duration, null,  null, null, null, null);
-	}
 	public Movie(String title, String originalTitle, Integer year, Person director) {
-		this(null,title,originalTitle, year, null, director, null, null, null, null);
-	}
-	public Movie(String title, String originalTitle, Integer year, String synopsis) {
-		this(null,title,originalTitle, year, null, null, null, synopsis, null, null);
-	}
-	public Movie(String title, String originalTitle, Integer year, Person director, String synopsis) {
-		this(null,title,originalTitle, year, null, director, null, synopsis,null, null);
+		this(null, title, originalTitle, year, null, director, null, null, null, null);
 	}
 	
-	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director) {
-		this(null, title, originalTitle, year, duration, director, null, null, null, null);
+	public Movie(String title, String originalTitle, Integer year, String synopsis) {
+		this(null, title, originalTitle, year, null, null, null, synopsis, null, null);
+	}
+	
+	public Movie(String title, String originalTitle, Integer year, Person director, String synopsis) {
+		this(null, title, originalTitle, year, null, director, null, synopsis,null, null);
 	}
 	
 	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis) {
 		this(null, title, originalTitle, year, duration, director, null, synopsis, null, null);
 	}
-	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis,  List<ColorMode> colorMode) {
+	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director, String synopsis,  ColorMode colorMode) {
 		this(null, title, originalTitle, year, duration, director, null, synopsis, colorMode, null);
 	}
 
-	public Movie(String title, String originalTitle, Integer year, Integer duration, String synopsis,  List<ColorMode> colorMode) {
+	public Movie(String title, String originalTitle, Integer year, Integer duration, String synopsis,  ColorMode colorMode) {
 		this(null, title, originalTitle, year, duration, null, null, synopsis, colorMode, null);
 	}
 	
-		
-	public Movie(Integer idMovie, String title, String originalTitle, Integer year, Integer duration, Person director,
-			List<Person> actors, String synopsis, List<ColorMode> colorMode, Float rating) {
+	public Movie(String title, String originalTitle, Integer year, Integer duration,
+			List<Person> actors, String synopsis, ColorMode colorMode, Float rating) {
 		this(null, title, originalTitle, year, duration, null, null, synopsis, synopsis, colorMode, null, rating);
 	}
 
-
+	public Movie(String title, String originalTitle, Integer year, Integer duration, Person director,
+			String synopsis, ColorMode colorMode, Float rating) {
+		this(null, title, originalTitle, year, duration, director, null, synopsis, synopsis, colorMode, null, rating);
+	}
+	
 	public Movie(Integer idMovie, String title, String originalTitle, Integer year, Integer duration, Person director,
-			List<Person> actors, String synopsis, String classification, List<ColorMode> colorMode, List<Genre> genre,
+			List<Person> actors, String synopsis, ColorMode colorMode, Float rating) {
+		this(null, title, originalTitle, year, duration, director, actors, synopsis, synopsis, colorMode, null, rating);
+	}
+	
+	// Pour testMappingEntities initData
+	// Tout sauf idMovie, actors, genre 
+	public Movie(String title, String originalTitle, 
+			Integer year, Integer duration, Person director,
+			String synopsis, String classification, 
+			ColorMode colorMode,
+			Float rating) {
+		this(null, title, originalTitle, 
+			year, duration, director, 
+			null, synopsis, classification, 
+			colorMode, null, rating);
+	}	
+	
+	// Tout sauf idMovie, originalTitle, duration, director, actors, synopsis, classification, colorMode, genre, rating
+	public Movie(String title, 
+			Integer year) {
+		this(null, title, null, 
+			year, null, null, 
+			null, null, null, 
+			null, null, null);
+	}
+	
+	// Tout sauf idMovie, duration, director, actors, synopsis, classification, colorMode, genre, rating
+	public Movie(String title, String originalTitle, 
+			Integer year) {
+		this(null, title, originalTitle, 
+			year, null, null, 
+			null, null, null, 
+			null, null, null);
+	}
+	
+	// Tout sauf idMovie, director, actors, synopsis, classification, colorMode, genre, rating
+	public Movie(String title, String originalTitle, 
+			Integer year, Integer duration) {
+		this(null, title, originalTitle, 
+			year, duration, null, 
+			null, null, null, 
+			null, null, null);
+	}
+	
+	// Tout sauf idMovie, actors, synopsis, classification, colorMode, genre, rating
+	public Movie(String title, String originalTitle, 
+			Integer year, Integer duration, Person director) {
+		this(null, title, originalTitle, 
+			year, duration, director, 
+			null, null, null, 
+			null, null, null);
+	}
+	
+	// Tout sauf idMovie, synopsis, classification, colorMode, genre, rating
+	public Movie(String title, String originalTitle, 
+			Integer year, Integer duration, Person director,
+			List<Person> actors) {
+		this(null, title, originalTitle, 
+			year, duration, director, 
+			actors, null, null, 
+			null, null, null);
+	}
+	
+	// Tout sauf idMovie, classification, colorMode, genre, rating
+	public Movie(String title, String originalTitle, 
+			Integer year, Integer duration, Person director,
+			List<Person> actors, String synopsis) {
+		this(null, title, originalTitle, 
+			year, duration, director, 
+			actors, synopsis, null, 
+			null, null, null);
+	}	
+	
+	// Tout sauf idMovie, colorMode, genre, rating
+	public Movie(String title, String originalTitle, 
+			Integer year, Integer duration, Person director,
+			List<Person> actors, String synopsis, String classification) {
+		this(null, title, originalTitle, 
+			year, duration, director, 
+			actors, synopsis, classification, 
+			null, null, null);
+	}	
+	
+	// Tout sauf idMovie, genre, rating
+	public Movie(String title, String originalTitle, 
+			Integer year, Integer duration, Person director,
+			List<Person> actors, String synopsis, String classification, 
+			ColorMode colorMode) {
+		this(null, title, originalTitle, 
+			year, duration, director, 
+			actors, synopsis, classification, 
+			colorMode, null, null);
+	}	
+	
+	
+	// Tout sauf idMovie, rating
+	public Movie(String title, String originalTitle, 
+			Integer year, Integer duration, Person director,
+			List<Person> actors, String synopsis, String classification, 
+			ColorMode colorMode, List<Genre> genre) {
+		this(null, title, originalTitle, 
+			year, duration, director, 
+			actors, synopsis, classification, 
+			colorMode, genre, null);
+	}	
+	
+	// Tout sauf idMovie
+	public Movie(String title, String originalTitle, 
+			Integer year, Integer duration, Person director,
+			List<Person> actors, String synopsis, String classification, 
+			ColorMode colorMode, List<Genre> genre,
+			Float rating) {
+		this(null, title, originalTitle, 
+			year, duration, director, 
+			actors, synopsis, classification, 
+			colorMode, genre, rating);
+	}	
+	
+	public Movie(Integer idMovie, String title, String originalTitle, 
+			Integer year, Integer duration, Person director,
+			List<Person> actors, String synopsis, String classification, 
+			ColorMode colorMode, List<Genre> genre,
 			Float rating) {
 		this.idMovie = idMovie;
 		this.title = title;
@@ -198,12 +309,11 @@ public class Movie {
 		this.synopsis = synopsis;
 	}
 	
-    @ElementCollection(targetClass=ColorMode.class)
-    public List<ColorMode> getColorMode() {
+    public ColorMode getColorMode() {
 		return colorMode;
 	}
 
-	public void setColorMode(List<ColorMode> colorMode) {
+	public void setColorMode(ColorMode colorMode) {
 		this.colorMode = colorMode;
 	}
 

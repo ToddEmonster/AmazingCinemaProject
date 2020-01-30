@@ -44,6 +44,6 @@ public interface IMovieService {
 	Optional<Movie> setRating(int idMovie, float rating);
 	Optional<Movie> setClassification(int idMovie, String classification);
 	Optional<Movie> setSynopsis(int idMovie, String synopsis);
-	Optional<Movie> setColorMode(int idMovie, List<ColorMode> colorMode);
+	Optional<Movie> setColorMode(int idMovie, ColorMode colorMode);
 	Optional<Movie> setGenre(int idMovie, List<Genre> genre);
 }

@@ -172,7 +172,7 @@ public class MovieController {
 	@PutMapping("/setColorMode")
 	@ResponseBody
 	public Optional<Movie> setColorMode(@RequestParam("m") int idMovie, 
-										@RequestParam("c") List<ColorMode> colorMode) {
+										@RequestParam("c") ColorMode colorMode) {
 		return MovieService.setColorMode(idMovie, colorMode);
 	}
 

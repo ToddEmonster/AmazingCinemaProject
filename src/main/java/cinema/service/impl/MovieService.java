@@ -189,7 +189,7 @@ public class MovieService implements IMovieService {
 	}
 	
 	@Override
-	public Optional<Movie> setColorMode(int idMovie, List<ColorMode> colorMode) {
+	public Optional<Movie> setColorMode(int idMovie, ColorMode colorMode) {
 		var movieOptToColored= movieRepository.findById(idMovie);
 		movieOptToColored.ifPresent(m -> {
 			movieOptToColored.get().setColorMode(colorMode);
