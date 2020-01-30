@@ -1,5 +1,6 @@
 package cinema.persistence.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -103,7 +104,7 @@ public class Movie {
 		this.year = year;
 		this.duration = duration;
 		this.director = director;
-		this.actors = actors;
+		this.actors = new ArrayList<>();
 		this.synopsis = synopsis;
 		this.classification = classification;
 		this.colorMode = colorMode;
@@ -163,8 +164,7 @@ public class Movie {
 	@ManyToMany //(fetch = FetchType.EAGER)
 	@JoinTable(name="act",
     joinColumns= @JoinColumn(name="id_movie"),
-    inverseJoinColumns=@JoinColumn(name="id_actor")
-			)
+    inverseJoinColumns=@JoinColumn(name="id_actor"))
 	public List<Person> getActors() {
 		return actors;
 	}

@@ -160,6 +160,7 @@ class TestMovie {
 	    entityManager.persist(whoopi);
 	    entityManager.persist(danny);
 	    
+	    // TODO ça marche pas à cette étape
 	    lion.getActors().add(danny);
 	    max.getActors().add(mel);
 	    madmax.getActors().add(mel);
