@@ -71,7 +71,7 @@ public class PersonController {
 	
 	@GetMapping("/actors/{idM}")
 	@ResponseBody
-	public Optional<List<PersonDto>> getMovieActors(@PathVariable("idM") int idMovie) {
+	public List<PersonDto> getMovieActors(@PathVariable("idM") int idMovie) {
 		return PersonService.getMovieActors(idMovie);		
 	}
 	

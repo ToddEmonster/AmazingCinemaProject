@@ -122,13 +122,12 @@ public class PersonService implements IPersonService {
 	}
 		
 	@Override
-	public Optional<List<PersonDto>> getMovieActors(int idMovie) {
+	public List<PersonDto> getMovieActors(int idMovie) {
 		return movieRepository.findById(idMovie)
-				.map(me-> {
-					return me.getActors().stream()
-					.map(a-> mapper.map(a, PersonDto.class))
-					.collect(Collectors.toList());
-				});
+				.map(me -> me.getActors().stream()
+							 .map(a -> mapper.map(a, PersonDto.class))
+							 .collect(Collectors.toList()))
+				.orElse(List.of());
 	}	
 		
 	@Override

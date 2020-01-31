@@ -25,5 +25,5 @@ public interface IPersonService {
 	Set<PersonDto> getPersonsByNationality(Nationality nationality);
 	Optional<PersonDto> setNationality(int idPerson, Nationality nationality);
 	Optional<PersonDto> getMovieDirector(int idMovie);
-	Optional<List<PersonDto>> getMovieActors(int idMovie);
+	List<PersonDto> getMovieActors(int idMovie);
 }
