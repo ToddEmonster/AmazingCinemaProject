@@ -38,7 +38,6 @@ public class Person {
 		this.birthdate = birthdate;
 	}
 	
-
 	/**
 	 * calculate age with LocalDate, MOnthDay and Person birthDate 
 	 * @return age of Person

@@ -1,9 +1,12 @@
 package cinema.persistence.entity;
 
 import java.time.LocalDate;
+import java.time.MonthDay;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.OptionalInt;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -109,5 +112,6 @@ public class Person {
 		StringBuilder builder = new StringBuilder(name);
 		return builder.append(" (").append(birthdate).append("). #").append(idPerson).toString();
 	}
-	
+
+
 }

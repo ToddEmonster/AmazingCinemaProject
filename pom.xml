@@ -17,10 +17,10 @@
   	<start-class>cinema.Application</start-class>
   </properties>
   
-  <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+
  <dependencies>
+<!-- SPRING dependencies -->
  	<dependency>
-	 <!-- spring dependencies -->
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter</artifactId>
 	</dependency>
@@ -42,8 +42,7 @@
 		<scope>test</scope>
 	</dependency>
 	
-	<!--  DRIVERS JDBC -->
-	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<!--  DRIVERS JDBC -->
 	<dependency>
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>
@@ -61,6 +60,14 @@
         <scope>test</scope>
 	</dependency>
 	
+<!-- other dependencies -->
+	<dependency>
+	    <groupId>org.modelmapper</groupId>
+	    <artifactId>modelmapper</artifactId>
+	    <version>2.3.6</version>
+	</dependency>
+	
+<!-- JUNIT -->
 	<dependency>
 	    <groupId>org.junit.jupiter</groupId>
 	    <artifactId>junit-jupiter-api</artifactId>

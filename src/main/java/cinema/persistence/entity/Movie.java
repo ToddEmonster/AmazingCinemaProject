@@ -219,7 +219,7 @@ public class Movie {
 		this.synopsis = synopsis;
 		this.classification = classification;
 		this.colorMode = colorMode;
-		this.genre = genre;
+		this.genre = new ArrayList<>();
 		this.rating = rating;
 	}
 
