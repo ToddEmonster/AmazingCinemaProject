@@ -40,4 +40,6 @@ public class DtoUtils {
 				.map(entity->mapper.map(entity, classDto))
 				.collect(Collectors.toCollection(supplier));
 	}
+
+	
 }

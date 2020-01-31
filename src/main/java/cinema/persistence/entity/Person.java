@@ -1,12 +1,8 @@
 package cinema.persistence.entity;
 
 import java.time.LocalDate;
-import java.time.MonthDay;
 import java.util.ArrayList;
-
 import java.util.List;
-import java.util.Objects;
-import java.util.OptionalInt;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -15,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "persons")
