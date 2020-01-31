@@ -47,6 +47,7 @@ public class MovieService implements IMovieService {
 	 */
 	@Override
 	public List<MovieLight> getAllMovies() {
+		// Methode Utils avec list
 		return DtoUtils.listFromEntityStream(
 				movieRepository.findAll().stream(), 
 				mapper, MovieLight.class);
@@ -54,21 +55,28 @@ public class MovieService implements IMovieService {
 
 	@Override
 	public Set<MovieLight> getMoviesByTitle(String title) {
-//		return DtoUtils.collectionFromEntityStream(
-//				movieRepository.findByTitle(title), 
-//				mapper, 
-//				MovieLight.class,
-//				TreeSet::new);
-//				
-		return movieRepository.findByTitle(title)
-				.stream()
-				.map(me->mapper.map(me, MovieLight.class))
-				.collect(Collectors.toSet());
+		// Methode Utils avec set
+		return DtoUtils.collectionFromEntityStream(
+				movieRepository.findByTitle(title).stream(), 
+				mapper, 
+				MovieLight.class,
+				HashSet::new);
 	}
 	
 	@Override
 	public Set<MovieLight> getMoviesByPartialTitle(String partialTitle) {
-		return movieRepository.findByTitleContainingIgnoreCase(partialTitle)
+		// Methode Utils avec collection->Set
+		return DtoUtils.setFromEntityStream(
+				movieRepository.findByTitleContainingIgnoreCase(partialTitle)
+					.stream(),
+				mapper,
+				MovieLight.class);
+	}
+	
+	@Override
+	public Set<MovieLight> getMovieByTitleContainingIgnoreCaseAndYear(String partialTitle, int year) {
+		// Methode traditionnelle avec stream, ModelMapper, Collect
+		return movieRepository.findByTitleContainingIgnoreCaseAndYear(partialTitle, year)
 				.stream()
 				.map(me->mapper.map(me, MovieLight.class))
 				.collect(Collectors.toSet());
@@ -76,20 +84,13 @@ public class MovieService implements IMovieService {
 
 	@Override
 	public Set<MovieLight> getMoviesByOriginalTitleContainingIgnoreCase(String partialTitle) {
-		return movieRepository.findByOriginalTitleContainingIgnoreCase(partialTitle)
-				.stream()
-				.map(me->mapper.map(me, MovieLight.class))
-				.collect(Collectors.toSet());
+		return DtoUtils.setFromEntityStream(
+				movieRepository.findByOriginalTitleContainingIgnoreCase(partialTitle)
+					.stream(), 
+				mapper, 
+				MovieLight.class);
 	}
-	
-	@Override
-	public Set<MovieLight> getMovieByTitleContainingIgnoreCaseAndYear(String partialTitle, int year) {
-		return movieRepository.findByTitleContainingIgnoreCaseAndYear(partialTitle, year)
-				.stream()
-				.map(me->mapper.map(me, MovieLight.class))
-				.collect(Collectors.toSet());
-	}
-	
+
 	@Override
 	public Optional<MovieFull> getMovieById(int idMovie) {
 		return movieRepository.findById(idMovie)

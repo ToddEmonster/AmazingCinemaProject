@@ -1,6 +1,7 @@
 package cinema.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -9,10 +10,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import cinema.data.Movie;
 import cinema.dto.PersonDto;
 import cinema.persistence.entity.Nationality;
 import cinema.persistence.entity.Person;
+import cinema.persistence.repository.MovieRepository;
 import cinema.persistence.repository.PersonRepository;
 import cinema.service.IPersonService;
 
@@ -22,6 +26,9 @@ public class PersonService implements IPersonService {
 	
 	@Autowired
 	PersonRepository personRepository;
+	
+	@Autowired
+	MovieRepository movieRepository;
 	
 	@Autowired
 	ModelMapper mapper;
@@ -105,6 +112,25 @@ public class PersonService implements IPersonService {
 				.collect(Collectors.toSet());
 	}
 
+	@Override
+	public Optional<PersonDto> getMovieDirector(int idMovie) {
+		return movieRepository.findById(idMovie)
+				.map(me-> {
+					Person d = me.getDirector();
+					return Objects.isNull(d) ? null : mapper.map(d, PersonDto.class);
+				});
+	}
+		
+	@Override
+	public Optional<List<PersonDto>> getMovieActors(int idMovie) {
+		return movieRepository.findById(idMovie)
+				.map(me-> {
+					return me.getActors().stream()
+					.map(a-> mapper.map(a, PersonDto.class))
+					.collect(Collectors.toList());
+				});
+	}	
+		
 	@Override
 	public Optional<PersonDto> setNationality(int idPerson, Nationality nationality) {
 		Optional<PersonDto> optPerson = personRepository.findById(idPerson)

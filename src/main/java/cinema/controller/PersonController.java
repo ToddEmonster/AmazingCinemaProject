@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cinema.data.Movie;
 import cinema.dto.PersonDto;
 import cinema.persistence.entity.Nationality;
-import cinema.persistence.entity.Person;
+import cinema.service.IMovieService;
 import cinema.service.IPersonService;
+import cinema.service.impl.MovieService;
 
 @RestController
 @RequestMapping("/api/person")
@@ -27,6 +30,7 @@ public class PersonController {
 	
 	@Autowired
 	IPersonService PersonService;
+	
 	
 	// Methodes Get
 	@GetMapping
@@ -53,35 +57,51 @@ public class PersonController {
 		return PersonService.getPersonsByNameContainingIgnoreCase(partialName);
 	}
 	
-	@GetMapping("/byBirtdateYear")
+	@GetMapping("/byBirthdateYear")
 	@ResponseBody
 	public Set<PersonDto> personByBirthdateYear(@RequestParam("y") int year) {
 		return PersonService.getPersonsByBirthdateYear(year);
 	}
 	
+	@GetMapping("/director/{idM}")
+	@ResponseBody
+	public Optional<PersonDto> getMovieDirector(@PathVariable("idM") int idMovie) {
+		return PersonService.getMovieDirector(idMovie);
+	}
+	
+	@GetMapping("/actors/{idM}")
+	@ResponseBody
+	public Optional<List<PersonDto>> getMovieActors(@PathVariable("idM") int idMovie) {
+		return PersonService.getMovieActors(idMovie);		
+	}
+	
+	@GetMapping("/byNationality")
+	@ResponseBody
+	public Set<PersonDto> personsByNationality(@RequestParam("n") String nationality) {
+		return PersonService.getPersonsByNationality(Nationality.valueOf(nationality));
+	}	
+	
+	
+	
+	
 	// Methodes Put, Post, Delete
+	
 	@PostMapping
 	@ResponseBody 
 	public PersonDto addPerson(@RequestBody PersonDto person) {
 		return PersonService.addPerson(person);
 	}
 	
-	@PutMapping("/modify")
-	@ResponseBody 
-	public Optional<PersonDto> modifyPerson(@RequestBody PersonDto person) {
-		return PersonService.modifyPerson(person);
-	}
-	
 	@DeleteMapping("/{id}")
 	@ResponseBody 
 	public Optional<PersonDto> deletePerson(@PathVariable("id") int idPerson) {
 		return PersonService.deletePerson(idPerson);
-	}
+	}	
 	
-	@GetMapping("/byNationality")
-	@ResponseBody
-	public Set<PersonDto> findByNationality(@RequestParam("n") String nationality) {
-		return PersonService.getPersonsByNationality(Nationality.valueOf(nationality));
+	@PutMapping("/modify")
+	@ResponseBody 
+	public Optional<PersonDto> modifyPerson(@RequestBody PersonDto person) {
+		return PersonService.modifyPerson(person);
 	}
 	
 	@PutMapping("/setNationality")
