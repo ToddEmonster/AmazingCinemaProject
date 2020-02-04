@@ -71,12 +71,14 @@ public class AccountService implements IAccountService {
 		// methode traditionnelle
 		Optional<Account> accountOpt = accountRepository.findByEmail(email);
 		if (accountOpt.isPresent()) {
-			if (accountOpt.get().getPassword() == password) {
+			if (accountOpt.get().getPassword().equals(password)) {
 				accountOpt.get().setLogged(true);
 				return Optional.of(mapper.map(accountOpt.get(), AccountDto.class));
 			}
+			System.out.println("The password is incorrect.");
 			return Optional.empty();
 		}
+		System.out.println("The account has not been found in the repository.");
 		return Optional.empty();
 	}
 
@@ -95,23 +97,23 @@ public class AccountService implements IAccountService {
 	}
 
 	@Override
-	public Optional<AccountDto> setAccountAdmin(AccountDto account) {
-		Optional<Account> accountOpt = accountRepository.findByEmail(account.getEmail());
+	public Optional<AccountDto> setAccountAdmin(String username) {
+		Optional<Account> accountOpt = accountRepository.findByUsername(username);
 		accountOpt.ifPresent(acc-> {
 			acc.setAdminRole(true);
+			accountRepository.flush();
 		});
-		mapper.map(accountOpt, account);
-		return Optional.of(account);
+		return Optional.of(mapper.map(accountOpt.get(), AccountDto.class));
 	}
 	
 	@Override
-	public Optional<AccountDto> setAccountNonAdmin(AccountDto account) {
-		Optional<Account> accountOpt = accountRepository.findByEmail(account.getEmail());
+	public Optional<AccountDto> setAccountNonAdmin(String username) {
+		Optional<Account> accountOpt = accountRepository.findByUsername(username);
 		accountOpt.ifPresent(acc-> {
 			acc.setAdminRole(false);
+			accountRepository.flush();
 		});
-		mapper.map(accountOpt, account);
-		return Optional.of(account);
+		return Optional.of(mapper.map(accountOpt.get(), AccountDto.class));
 	}
 	
 }

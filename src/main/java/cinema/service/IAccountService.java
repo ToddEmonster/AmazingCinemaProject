@@ -13,8 +13,8 @@ public interface IAccountService {
 	AccountDto createAccount(AccountDto accountDto);
 	Optional<AccountDto> loginAccount(String email, String password);
 	String logoutAccount(String username);
-	Optional<AccountDto> setAccountAdmin(AccountDto accountDto);
-	Optional<AccountDto> setAccountNonAdmin(AccountDto accountDto);
+	Optional<AccountDto> setAccountAdmin(String username);
+	Optional<AccountDto> setAccountNonAdmin(String username);
 	
 
 }

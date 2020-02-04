@@ -63,15 +63,15 @@ public class AccountController {
 	// Set account admin
 	@PutMapping("/setAdmin")
 	@ResponseBody
-	public Optional<AccountDto> setAccountAdmin(@RequestBody AccountDto account) {
-		return AccountService.setAccountAdmin(account);
+	public Optional<AccountDto> setAccountAdmin(@RequestParam("u") String username) {
+		return AccountService.setAccountAdmin(username);
 	}
 	
-	
+
 	// Deprive an account from admin privileges
 	@PutMapping("/setAsNotAdmin")
 	@ResponseBody
-	public Optional<AccountDto> setAccountNotAdmin(@RequestBody AccountDto account) {
-		return AccountService.setAccountNonAdmin(account);
+	public Optional<AccountDto> setAccountNotAdmin(@RequestParam("u") String username) {
+		return AccountService.setAccountNonAdmin(username);
 	}
 }
