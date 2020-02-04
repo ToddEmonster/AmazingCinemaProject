@@ -17,10 +17,12 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import cinema.persistence.entity.Account;
 import cinema.persistence.entity.ColorMode;
 import cinema.persistence.entity.Movie;
 import cinema.persistence.entity.Nationality;
 import cinema.persistence.entity.Person;
+import cinema.persistence.repository.AccountRepository;
 import cinema.persistence.repository.MovieRepository;
 import cinema.persistence.repository.PersonRepository;
 
@@ -32,9 +34,21 @@ class TestMappingEnties {
 	MovieRepository repoMovie;
 	@Autowired
 	PersonRepository repoPerson;
+	@Autowired
+	AccountRepository repoAccount;
 	
 	@Autowired
 	EntityManager entityManager;
+	
+	@Rollback(false)
+	@Test
+	void initAccounts() {
+		Account lambda = new Account("Lambda", "Lambda", "Tartempion", "lambda@mock.com", "password", false);
+		Account admin = new Account("Admin", "Master", "SuperAdmin", "admin@admin.com", "master", true) ;
+		repoAccount.save(lambda);
+		repoAccount.save(admin);
+		repoAccount.flush();
+	}
 	
 	@Rollback(false)
 	@Test

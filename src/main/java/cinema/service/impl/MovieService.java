@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TreeSet;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -16,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cinema.dto.MovieFull;
 import cinema.dto.MovieLight;
-import cinema.dto.PersonDto;
 import cinema.persistence.entity.ColorMode;
 import cinema.persistence.entity.Genre;
 import cinema.persistence.entity.Movie;
@@ -227,6 +224,8 @@ public class MovieService implements IMovieService {
 								})
 					);	
 //		// méthode traditionnelle
+//		movieOpt = movieRepository.findById(idMovie);
+//		actorOpt = personRepository.findById(idActor);
 //		if (movieOpt.isPresent() && actorOpt.isPresent()) {
 //			movieOpt.get().getActors().add(actorOpt.get());
 //			return Optional.of(mapper.map(movieOpt.get(), MovieFull.class));
