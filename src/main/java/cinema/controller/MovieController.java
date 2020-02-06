@@ -39,78 +39,90 @@ public class MovieController {
 		return MovieService.getAllMovies();
 	}
 	
+	@CrossOrigin
 	@GetMapping("/{id}")
 	@ResponseBody
 	public Optional<MovieFull> movieById(@PathVariable("id") int idMovie) {
 		return MovieService.getMovieById(idMovie);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/byTitle")
 	@ResponseBody
 	public Set<MovieLight> movieByPartialTitle(@RequestParam("t") String partialTitle) {
 		return MovieService.getMoviesByPartialTitle(partialTitle);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/byFullTitle")
 	@ResponseBody
 	public Set<MovieLight> movieByFullTitle(@RequestParam("t") String title) {
 		return MovieService.getMoviesByTitle(title);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/byOriginalTitle")
 	@ResponseBody
 	public Set<MovieLight> movieByPartialOriginalTitle(@RequestParam("t") String partialTitle) {
 		return MovieService.getMoviesByOriginalTitleContainingIgnoreCase(partialTitle);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/byDirector")
 	@ResponseBody
 	public Set<MovieLight> findByDirector(@RequestParam("d") int idDirector) {
 		return MovieService.getMoviesByDirector(idDirector);
 	}
-
+	
+	@CrossOrigin
 	@GetMapping("/byYear")
 	@ResponseBody
 	public Set<MovieLight> findByYear(@RequestParam("y") int year) {
 		return MovieService.getMoviesByYear(year);
 	}
 
-	
+	@CrossOrigin
 	@GetMapping("/byTitleYear")
 	@ResponseBody
 	public Set<MovieLight> findByPartialTitleAndYear(@RequestParam("t") String title, @RequestParam("y") int year) {
 		return MovieService.getMovieByTitleContainingIgnoreCaseAndYear(title, year);
 	}
-	
+
+	@CrossOrigin
 	@GetMapping("/byActorId")
 	@ResponseBody
 	public Set<MovieLight> findByActorId(@RequestParam("a") int idActor) {
 		return MovieService.getMoviesByActorsIdPerson(idActor);
 	}
-	
+
+	@CrossOrigin
 	@GetMapping("/byActorName")
 	public Set<MovieLight> findByActorName(@RequestParam("a") String nameActor) {
 		return MovieService.getMoviesByActorsNameEndingWithIgnoreCase(nameActor);
 	}	
-	
+
+	@CrossOrigin
 	@GetMapping("/byRating")
 	@ResponseBody
 	public Set<MovieLight> findByRating(@RequestParam("r") float rating) {
 		return MovieService.getMoviesByRating(rating);
 	}
-	
+
+	@CrossOrigin
 	@GetMapping("/byColorMode")
 	@ResponseBody
 	public Set<MovieLight> findByColorMode(@RequestParam("c")  ColorMode colorMode) {
 		return MovieService.getMoviesByColorMode(colorMode);
 	}
-	
+
+	@CrossOrigin
 	@GetMapping("/byClassification")
 	@ResponseBody
 	public Set<MovieLight> findByClassification(@RequestParam("c") String classification) {
 		return MovieService.getMoviesByClassification(classification);
 	}
 
+	@CrossOrigin
 	@GetMapping("/byGenre")
 	@ResponseBody
 	public Set<MovieLight> findByGenre(@RequestParam("g") Genre genre) {
@@ -121,6 +133,8 @@ public class MovieController {
 	/*
 	 * POST
 	 */
+
+	@CrossOrigin
 	@PostMapping
 	@ResponseBody
 	public MovieFull addMovie(@RequestBody MovieFull movie) {
@@ -132,46 +146,53 @@ public class MovieController {
 	 */
 	// Dans un Controller, toujours renvoyer un truc et pas un void pour voir
 	// Mettre un alias pour RequestParam permet de s'affranchir de l'ordre d'appel
+	@CrossOrigin
 	@PutMapping("/addActor")
 	public Optional<MovieFull> addActor(@RequestParam("a") int idActor,
 									@RequestParam("m") int idMovie) {
 		return MovieService.addActor(idActor, idMovie);
 	}
-	
+
+	@CrossOrigin
 	@PutMapping("/setDirector")
 	@ResponseBody
 	public Optional<MovieFull> setDirector(@RequestParam("d") int idDirector,
 									   @RequestParam("m") int idMovie) {
 		return MovieService.setDirector(idDirector, idMovie);
 	}
-	
+
+	@CrossOrigin
 	@PutMapping("/modify")
 	@ResponseBody
 	public Optional<MovieFull> modifyMovie(@RequestBody MovieFull movie) {
 		return MovieService.modifyMovie(movie);
 	}
-	
+
+	@CrossOrigin
 	@PutMapping("/setRating")
 	@ResponseBody
 	public Optional<MovieFull> setRating(@RequestParam("m") int idMovie, 
 									@RequestParam("r") float rating) {
 		return MovieService.setRating(idMovie, rating);
 	}
-	
+
+	@CrossOrigin
 	@PutMapping("/setClassification")
 	@ResponseBody
 	public Optional<MovieFull> setClassification(@RequestParam("m") int idMovie, 
 											@RequestParam("c") String classification) {
 		return MovieService.setClassification(idMovie, classification);
 	}
-	
+
+	@CrossOrigin
 	@PutMapping("/setSynopsis")
 	@ResponseBody
 	public Optional<MovieFull> setSynopsis(@RequestParam("m") int idMovie, 
 									   @RequestParam("s") String synopsis) {
 		return MovieService.setSynopsis(idMovie, synopsis);
 	}
-	
+
+	@CrossOrigin
 	@PutMapping("/setColorMode")
 	@ResponseBody
 	public Optional<MovieFull> setColorMode(@RequestParam("m") int idMovie, 
@@ -179,6 +200,7 @@ public class MovieController {
 		return MovieService.setColorMode(idMovie, colorMode);
 	}
 
+	@CrossOrigin
 	@PutMapping("/setGenre")
 	@ResponseBody
 	public Optional<MovieFull> setGenre(@RequestParam("m") int idMovie, 
@@ -194,12 +216,12 @@ public class MovieController {
 	/*
 	 * DELETE
 	 */
+	@CrossOrigin
 	@DeleteMapping("/{id}")
 	@ResponseBody
 	public Optional<MovieFull> deleteMovie(@PathVariable("id") int idMovie) {
 		return MovieService.deleteMovie(idMovie);
 	}
 
-	
 	
 }

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,48 +34,56 @@ public class PersonController {
 	
 	
 	// Methodes Get
+	@CrossOrigin
 	@GetMapping
 	@ResponseBody
 	public List<PersonDto> allPersons() {
 		return PersonService.getAllPersons();
 	}
-	
+
+	@CrossOrigin
 	@GetMapping("/{id}")
 	@ResponseBody
 	public Optional<PersonDto> personById(@RequestParam("id") int idPerson) {
 		return PersonService.getPersonById(idPerson);
 	}
-	
+
+	@CrossOrigin
 	@GetMapping("/byEndName")
 	@ResponseBody
 	public Set<PersonDto> personsByNameEnding(@RequestParam("n") String name) {
 		return PersonService.getPersonsByNameEndingWithIgnoreCase(name);
 	}
-	
+
+	@CrossOrigin
 	@GetMapping("/byNameContaining")
 	@ResponseBody
 	public Set<PersonDto> personsByNameContaining(@RequestParam("n") String partialName) {
 		return PersonService.getPersonsByNameContainingIgnoreCase(partialName);
 	}
-	
+
+	@CrossOrigin
 	@GetMapping("/byBirthdateYear")
 	@ResponseBody
 	public Set<PersonDto> personByBirthdateYear(@RequestParam("y") int year) {
 		return PersonService.getPersonsByBirthdateYear(year);
 	}
-	
+
+	@CrossOrigin
 	@GetMapping("/director/{idM}")
 	@ResponseBody
 	public Optional<PersonDto> getMovieDirector(@PathVariable("idM") int idMovie) {
 		return PersonService.getMovieDirector(idMovie);
 	}
-	
+
+	@CrossOrigin
 	@GetMapping("/actors/{idM}")
 	@ResponseBody
 	public List<PersonDto> getMovieActors(@PathVariable("idM") int idMovie) {
 		return PersonService.getMovieActors(idMovie);		
 	}
-	
+
+	@CrossOrigin
 	@GetMapping("/byNationality")
 	@ResponseBody
 	public Set<PersonDto> personsByNationality(@RequestParam("n") String nationality) {
@@ -85,25 +94,29 @@ public class PersonController {
 	
 	
 	// Methodes Put, Post, Delete
-	
+
+	@CrossOrigin
 	@PostMapping
 	@ResponseBody 
 	public PersonDto addPerson(@RequestBody PersonDto person) {
 		return PersonService.addPerson(person);
 	}
-	
+
+	@CrossOrigin
 	@DeleteMapping("/{id}")
 	@ResponseBody 
 	public Optional<PersonDto> deletePerson(@PathVariable("id") int idPerson) {
 		return PersonService.deletePerson(idPerson);
 	}	
-	
+
+	@CrossOrigin
 	@PutMapping("/modify")
 	@ResponseBody 
 	public Optional<PersonDto> modifyPerson(@RequestBody PersonDto person) {
 		return PersonService.modifyPerson(person);
 	}
-	
+
+	@CrossOrigin
 	@PutMapping("/setNationality")
 	@ResponseBody
 	public Optional<PersonDto> setNationality(@RequestParam("id") int idPerson,

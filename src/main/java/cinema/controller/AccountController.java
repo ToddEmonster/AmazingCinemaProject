@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,7 +24,8 @@ public class AccountController {
 	
 	@Autowired
 	IAccountService AccountService;
-	
+
+	@CrossOrigin
 	@GetMapping
 	@ResponseBody
 	public List<AccountDto> allUsers() {
@@ -32,6 +34,7 @@ public class AccountController {
 	
 	
 	// See if someone is logged in
+	@CrossOrigin
 	@GetMapping("/isLogged")
 	@ResponseBody
 	public Set<AccountDto> isSomeoneLoggedIn() {
@@ -39,6 +42,7 @@ public class AccountController {
 	}
 	
 	// Create account
+	@CrossOrigin
 	@PostMapping
 	@ResponseBody
 	public AccountDto createAccount(@RequestBody AccountDto account) {
@@ -46,6 +50,7 @@ public class AccountController {
 	}
 	
 	// Login account
+	@CrossOrigin
 	@PutMapping("/login")
 	@ResponseBody
 	public Optional<AccountDto> login(@RequestParam("em") String email,
@@ -54,6 +59,7 @@ public class AccountController {
 	}	
 	
 	// Logout account
+	@CrossOrigin
 	@PutMapping("/logout")
 	@ResponseBody
 	public String logout(@RequestParam("u") String username) {
@@ -61,6 +67,7 @@ public class AccountController {
 	}	
 	
 	// Set account admin
+	@CrossOrigin
 	@PutMapping("/setAdmin")
 	@ResponseBody
 	public Optional<AccountDto> setAccountAdmin(@RequestParam("u") String username) {
@@ -69,6 +76,7 @@ public class AccountController {
 	
 
 	// Deprive an account from admin privileges
+	@CrossOrigin
 	@PutMapping("/setAsNotAdmin")
 	@ResponseBody
 	public Optional<AccountDto> setAccountNotAdmin(@RequestParam("u") String username) {
