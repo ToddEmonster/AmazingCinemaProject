@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cinema.dto.MovieFull;
 import cinema.dto.MovieLight;
+import cinema.exception.MovieNotFoundException;
 import cinema.persistence.entity.ColorMode;
 import cinema.persistence.entity.Genre;
 import cinema.service.IMovieService;
@@ -43,7 +44,13 @@ public class MovieController {
 	@GetMapping("/{id}")
 	@ResponseBody
 	public Optional<MovieFull> movieById(@PathVariable("id") int idMovie) {
-		return MovieService.getMovieById(idMovie);
+		Optional<MovieFull> fullMovie = MovieService.getMovieById(idMovie);
+		if (fullMovie.isPresent()) {
+			return fullMovie;
+		}
+		
+		throw new MovieNotFoundException();
+	
 	}
 	
 	@CrossOrigin
