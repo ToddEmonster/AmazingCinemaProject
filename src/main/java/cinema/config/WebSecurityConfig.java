@@ -42,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers("/authenticate").permitAll()
 			.antMatchers("/api/movie").permitAll()
+			.antMatchers("/api/movie/**").permitAll()
 			.anyRequest().authenticated().and()
 			.exceptionHandling()
 			.authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
