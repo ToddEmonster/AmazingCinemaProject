@@ -1,15 +1,18 @@
 package cinema.persistence.entity;
 
 import java.time.LocalDate;
-import java.util.List;
+
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+
 
 @Entity
 @Table(name = "accounts")
@@ -26,7 +29,7 @@ public class Account {
 	private Boolean logged;
 	
 	
-	private List<Integer> likedMovies;
+	private Set<LikedMovies> likedMovies;
 	
 	
 	public Account() {
@@ -132,12 +135,12 @@ public class Account {
 	}
 	
 	
-	
-	public List<Integer> getLikedMovies() {
+	@OneToMany(mappedBy="account")
+	public Set<LikedMovies> getLikedMovies() {
 		return likedMovies;
 	}
 
-	public void setLikedMovies(List<Integer> likedMovies) {
+	public void setLikedMovies(Set<LikedMovies> likedMovies) {
 		this.likedMovies = likedMovies;
 	}
 

@@ -89,12 +89,12 @@ public class AccountController {
 		return AccountService.setAccountNonAdmin(username);
 	}
 	
-	@CrossOrigin
-	@GetMapping("/likedMovies")
-	@ResponseBody
-	public Optional<List<Integer>> getLikedMovies() {
-		return AccountService.getLikedMovies();
-	}
+//	@CrossOrigin
+//	@GetMapping("/likedMovies")
+//	@ResponseBody
+//	public Optional<List<Integer>> getLikedMovies() {
+//		return AccountService.getLikedMovies();
+//	}
 	
 //	@CrossOrigin
 //	@PostMapping("/likeMovie")
