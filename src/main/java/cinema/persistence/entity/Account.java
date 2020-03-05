@@ -1,6 +1,7 @@
 package cinema.persistence.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,10 @@ public class Account {
 	private String password;
 	private Boolean adminRole;
 	private Boolean logged;
+	
+	
+	private List<Integer> likedMovies;
+	
 	
 	public Account() {
 		this(null, null, null, null, null, null, false);
@@ -127,5 +132,14 @@ public class Account {
 	}
 	
 	
+	
+	public List<Integer> getLikedMovies() {
+		return likedMovies;
+	}
+
+	public void setLikedMovies(List<Integer> likedMovies) {
+		this.likedMovies = likedMovies;
+	}
+
 	
 }

@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cinema.dto.AccountDto;
+import cinema.dto.MovieLight;
 import cinema.service.IAccountService;
+import cinema.service.IMovieService;
+import cinema.service.impl.MovieService;
 
 @RestController
 @RequestMapping("api/account")
@@ -25,6 +28,9 @@ public class AccountController {
 	@Autowired
 	IAccountService AccountService;
 
+	@Autowired
+	IMovieService MovieService;
+	
 	@CrossOrigin
 	@GetMapping
 	@ResponseBody
@@ -82,4 +88,19 @@ public class AccountController {
 	public Optional<AccountDto> setAccountNotAdmin(@RequestParam("u") String username) {
 		return AccountService.setAccountNonAdmin(username);
 	}
+	
+	@CrossOrigin
+	@GetMapping("/likedMovies")
+	@ResponseBody
+	public Optional<List<Integer>> getLikedMovies() {
+		return AccountService.getLikedMovies();
+	}
+	
+//	@CrossOrigin
+//	@PostMapping("/likeMovie")
+//	@ResponseBody
+//	public Optional<MovieLight> likeMovie(@RequestParam("m") Integer idMovie) {
+//		return AccountService.likeMovie(idMovie);
+//	}
+	
 }

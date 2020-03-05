@@ -116,4 +116,11 @@ public class AccountService implements IAccountService {
 		return Optional.of(mapper.map(accountOpt.get(), AccountDto.class));
 	}
 	
+	
+	@Override
+	public Optional<List<Integer>> getLikedMovies() {
+		
+		return Optional.of(value);
+	}
+	
 }

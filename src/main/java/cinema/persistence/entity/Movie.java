@@ -37,6 +37,7 @@ public class Movie {
 	private List<Genre> genre;
 	private Float rating;
 	
+	
 	public Movie() {
 		this(null, null);	
 	}

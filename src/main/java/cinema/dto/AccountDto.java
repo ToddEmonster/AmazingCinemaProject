@@ -1,5 +1,7 @@
 package cinema.dto;
 
+import java.util.List;
+
 public class AccountDto {
 	
 	private String firstName;
@@ -10,6 +12,7 @@ public class AccountDto {
 	private Boolean adminRole;
 	private Boolean logged;
 
+	private List<Integer> likedMovies;
 
 	public String getFirstName() {
 		return firstName;
@@ -64,5 +67,13 @@ public class AccountDto {
 
 	public void setLogged(Boolean logged) {
 		this.logged = logged;
+	}
+	
+	public List<Integer> getLikedMovies() {
+		return likedMovies;
+	}
+
+	public void setLikedMovies(List<Integer> likedMovies) {
+		this.likedMovies = likedMovies;
 	}
 }
