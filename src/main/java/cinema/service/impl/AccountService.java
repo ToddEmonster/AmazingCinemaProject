@@ -12,8 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cinema.dto.AccountDto;
+import cinema.dto.MovieFull;
 import cinema.persistence.entity.Account;
+import cinema.persistence.entity.Genre;
+import cinema.persistence.entity.Movie;
 import cinema.persistence.repository.AccountRepository;
+import cinema.persistence.repository.MovieRepository;
 import cinema.service.IAccountService;
 import utils.DtoUtils;
 
@@ -23,6 +27,9 @@ public class AccountService implements IAccountService {
 	
 	@Autowired
 	AccountRepository accountRepository;
+
+	@Autowired
+	MovieRepository movieRepository;
 	
 	@Autowired
 	ModelMapper mapper;
@@ -115,5 +122,15 @@ public class AccountService implements IAccountService {
 		});
 		return Optional.of(mapper.map(accountOpt.get(), AccountDto.class));
 	}
+
+//	@Override
+//	public List<Movie> setMoviesLiked(int idMovie, List<Movie> moviesLiked) {
+//		Optional<Movie> movieOptLiked = movieRepository.findById(idMovie);
+//		movieOptLiked.ifPresent(m -> {
+//			movieOptLiked.get();
+//			accountRepository.flush();
+//		});
+//		return null;
+//	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import cinema.dto.AccountDto;
+import cinema.persistence.entity.Movie;
 
 public interface IAccountService {
 	
@@ -16,5 +17,5 @@ public interface IAccountService {
 	Optional<AccountDto> setAccountAdmin(String username);
 	Optional<AccountDto> setAccountNonAdmin(String username);
 	
-
+//	List<Movie> setMoviesLiked(int idMovie,  List<Movie> moviesLiked);
 }

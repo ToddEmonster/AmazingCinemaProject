@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cinema.dto.AccountDto;
+import cinema.persistence.entity.Movie;
 import cinema.service.IAccountService;
 
 @RestController
@@ -82,4 +83,6 @@ public class AccountController {
 	public Optional<AccountDto> setAccountNotAdmin(@RequestParam("u") String username) {
 		return AccountService.setAccountNonAdmin(username);
 	}
+
+
 }

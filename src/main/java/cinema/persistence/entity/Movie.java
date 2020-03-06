@@ -2,6 +2,7 @@ package cinema.persistence.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -36,7 +38,12 @@ public class Movie {
 	private ColorMode colorMode;
 	private List<Genre> genre;
 	private Float rating;
+
 	
+
+	private Set<LikedMovies> userLike;
+
+
 	public Movie() {
 		this(null, null);	
 	}
@@ -334,6 +341,17 @@ public class Movie {
 	public void setClassification(String classification) {
 		this.classification = classification;
 	}
+
+	@OneToMany(mappedBy = "movie")
+	public Set<LikedMovies> getUserLike() {
+		return userLike;
+	}
+
+
+	public void setUserLike(Set<LikedMovies> userLike) {
+		this.userLike = userLike;
+	}
+
 	
 	@Override
 	public String toString() {
