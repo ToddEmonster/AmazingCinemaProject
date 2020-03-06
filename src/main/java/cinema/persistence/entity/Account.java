@@ -37,13 +37,13 @@ public class Account {
 	}
 	
 	
-	// adminRole not mandatory
+	// adminRole set as null
 	public Account(String firstName, String lastName, String username, 
 			   String email, String password, Boolean logged) {
 	this(null, firstName, lastName, username, email, password, null, false);
 	}
 	
-	// adminRole not mandatory
+	// adminRole defined
 	public Account(String firstName, String lastName, String username, 
 			   String email, String password, Boolean adminRole, Boolean logged) {
 	this(null, firstName, lastName, username, email, password, adminRole, false);
