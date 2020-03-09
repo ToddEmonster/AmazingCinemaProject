@@ -25,7 +25,7 @@ import cinema.persistence.entity.Genre;
 import cinema.service.IMovieService;
 
 @RestController
-@RequestMapping("/api/movies")
+@RequestMapping("/api/movie")
 public class MovieController {
 	
 	@Autowired
