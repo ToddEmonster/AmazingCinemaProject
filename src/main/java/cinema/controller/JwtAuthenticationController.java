@@ -1,5 +1,7 @@
 package cinema.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cinema.config.JwtTokenUtil;
 import cinema.model.JwtRequest;
 import cinema.model.JwtResponse;
+import cinema.model.JwtTokenRequest;
 import cinema.service.JwtUserDetailsService;
 
 @RestController
@@ -32,6 +35,18 @@ public class JwtAuthenticationController {
 	// Changé, avant c'était direct le UserDetailsService du framework Spring
 	@Autowired
 	private JwtUserDetailsService jwtUserDetailsService;
+	
+	
+	
+	@RequestMapping(value="/isLogged", method=RequestMethod.POST)
+	public ResponseEntity<?> loggedUserFromToken (
+			@RequestBody JwtTokenRequest tokenFromFront
+			) {
+		String loggedUsername = jwtTokenUtil.getUserNameFromToken(tokenFromFront.getToken());
+		
+		return ResponseEntity.ok(jwtUserDetailsService.loadUserByUsername(loggedUsername));
+	}
+	
 	
 	@RequestMapping(value="/authenticate", method=RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(

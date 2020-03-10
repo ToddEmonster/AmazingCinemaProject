@@ -56,6 +56,11 @@ public class JwtTokenUtil implements Serializable {
 	}
 	
 	
+	/**
+	 *
+	 * @param token
+	 * @return
+	 */
 	public Claims getAllClaimsFromToken(String token) {
 		return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
 	}
