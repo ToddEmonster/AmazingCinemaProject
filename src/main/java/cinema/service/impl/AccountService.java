@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cinema.dto.AccountDto;
+import cinema.dto.MovieFull;
 import cinema.persistence.entity.Account;
 import cinema.persistence.repository.AccountRepository;
 import cinema.service.IAccountService;
@@ -27,6 +28,11 @@ public class AccountService implements IAccountService {
 	@Autowired
 	ModelMapper mapper;
 	
+	@Override
+	public Optional<AccountDto> getAccountByUsername(String username) {
+		return accountRepository.findByUsername(username)
+				.map(me -> mapper.map(me, AccountDto.class));
+	}
 	
 	@Override
 	public List<AccountDto> getAllUsers() {

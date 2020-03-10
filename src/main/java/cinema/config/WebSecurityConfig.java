@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configuredGlobal(
 			AuthenticationManagerBuilder auth
 			) throws Exception {
+		// "Le passwordEncoder de ce service c'est le BCrypt"
 		auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
 	}
 	

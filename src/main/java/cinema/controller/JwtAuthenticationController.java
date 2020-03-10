@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cinema.config.JwtTokenUtil;
 import cinema.model.JwtRequest;
 import cinema.model.JwtResponse;
+import cinema.service.JwtUserDetailsService;
 
 @RestController
 @CrossOrigin
@@ -26,26 +27,32 @@ public class JwtAuthenticationController {
 	private AuthenticationManager authenticationManager;
 	
 	@Autowired
-	private JwtTokenUtil jwTokenUtil;
+	private JwtTokenUtil jwtTokenUtil;
 	
+	// Changé, avant c'était direct le UserDetailsService du framework Spring
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private JwtUserDetailsService jwtUserDetailsService;
 	
 	@RequestMapping(value="/authenticate", method=RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(
+			// Ce que le Front m'envoie en requête, qui prend la forme du JwtRequest
 			@RequestBody JwtRequest authenticationRequest
 		) throws Exception { 
+		// J'appelle la méthode d'authentification en prenant les identifiants fournis par le Front
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		
-		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername()) ;
+		final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getUsername()) ;
 		
-		final String token = jwTokenUtil.generateToken(userDetails);
+		final String token = jwtTokenUtil.generateToken(userDetails);
 		
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 	
+	
+	// "je prends le username et le password en entrée
 	private void authenticate(String username, String password) throws Exception {
 		try {
+			// j'essaie de générer un Token d'authentification sur la base des identifiants fournis, ssi l'identification
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));	
 		} catch(DisabledException e) {
 			throw new Exception("USER_DISABLED", e); 
