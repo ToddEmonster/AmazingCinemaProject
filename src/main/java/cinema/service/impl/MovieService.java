@@ -199,12 +199,12 @@ public class MovieService implements IMovieService {
 	
 	@Override
 	public Optional<MovieFull> deleteMovie(int idMovie) {
-		Optional<Movie> movieToDelete = movieRepository.findById(idMovie);
-		movieToDelete.ifPresent(m -> {
+	movieRepository.findById(idMovie)
+		.ifPresent(m -> {
 			movieRepository.delete(m);
 			movieRepository.flush();
 		});
-		return movieToDelete.map(me->mapper.map(me, MovieFull.class));
+		return null;
 	}
 	
 
