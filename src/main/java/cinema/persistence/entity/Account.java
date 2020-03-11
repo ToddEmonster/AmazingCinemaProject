@@ -25,7 +25,7 @@ public class Account {
 	private String username;
 	private String email;
 	private String password;
-	private Boolean adminRole;
+	private Boolean isAdmin;
 	private Boolean logged;
 	
 	
@@ -33,24 +33,24 @@ public class Account {
 	
 	
 	public Account() {
-		this(null, null, null, null, null, null, false);
+		this(null, null, null, null, null, false, false);
 	}
 	
 	
 	// adminRole set as null
 	public Account(String firstName, String lastName, String username, 
 			   String email, String password, Boolean logged) {
-	this(null, firstName, lastName, username, email, password, null, false);
+	this(null, firstName, lastName, username, email, password, false, false);
 	}
 	
 	// adminRole defined
 	public Account(String firstName, String lastName, String username, 
-			   String email, String password, Boolean adminRole, Boolean logged) {
-	this(null, firstName, lastName, username, email, password, adminRole, false);
+			   String email, String password, Boolean isAdmin, Boolean logged) {
+	this(null, firstName, lastName, username, email, password, isAdmin, false);
 	}
 	
 	public Account(Integer idUser, String firstName, String lastName, String username, 
-				   String email, String password, Boolean adminRole, Boolean logged) {
+				   String email, String password, Boolean isAdmin, Boolean logged) {
 		super();
 		this.idUser = idUser;
 		this.firstName = firstName;
@@ -58,7 +58,7 @@ public class Account {
 		this.username = username;
 		this.email = email;
 		this.password = password;
-		this.adminRole = adminRole;
+		this.isAdmin = isAdmin;
 		this.logged = false;
 	}
 
@@ -118,12 +118,12 @@ public class Account {
 		this.password = password;
 	}
 
-	public Boolean getAdminRole() {
-		return adminRole;
+	public Boolean getIsAdmin() {
+		return isAdmin;
 	}
 
-	public void setAdminRole(Boolean adminRole) {
-		this.adminRole = adminRole;
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 	public Boolean getLogged() {

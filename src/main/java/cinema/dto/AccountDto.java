@@ -4,15 +4,24 @@ import java.util.List;
 
 public class AccountDto {
 	
+	private Integer idUser;
 	private String firstName;
 	private String lastName;
 	private String username;
 	private String email;
 	private String password;
-	private Boolean adminRole;
+	private Boolean isAdmin;
 	private Boolean logged;
 
 	private List<Integer> likedMovies;
+
+	public Integer getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -53,12 +62,12 @@ public class AccountDto {
 		this.password = password;
 	}
 
-	public Boolean getAdminRole() {
-		return adminRole;
+	public Boolean getIsAdmin() {
+		return isAdmin;
 	}
 
-	public void setAdminRole(Boolean adminRole) {
-		this.adminRole = adminRole;
+	public void setIsAdmin(Boolean IsAdmin) {
+		this.isAdmin = IsAdmin;
 	}
 	
 	public Boolean getLogged() {

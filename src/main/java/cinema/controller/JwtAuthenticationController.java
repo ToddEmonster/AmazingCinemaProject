@@ -9,7 +9,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import cinema.config.JwtTokenUtil;
+import cinema.dto.AccountDto;
 import cinema.model.JwtRequest;
 import cinema.model.JwtResponse;
 import cinema.model.JwtTokenRequest;
+import cinema.service.IAccountService;
 import cinema.service.JwtUserDetailsService;
 
 @RestController
@@ -28,6 +29,9 @@ public class JwtAuthenticationController {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	IAccountService accountService;
 	
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
@@ -44,8 +48,28 @@ public class JwtAuthenticationController {
 			) {
 		String loggedUsername = jwtTokenUtil.getUserNameFromToken(tokenFromFront.getToken());
 		
-		return ResponseEntity.ok(jwtUserDetailsService.loadUserByUsername(loggedUsername));
+		// En vrai je renvoie ce que je veux si je veux !
+		UserDetails firstResponse = jwtUserDetailsService.loadUserByUsername(loggedUsername);
+		
+		Optional<AccountDto> secondResponse = accountService.getAccountByUsername(loggedUsername);
+		
+//		any finalResponse = map;
+		
+		return ResponseEntity.ok(secondResponse);
 	}
+	
+	// La reponse dans firstResponse ressemble à ça :
+//	{
+//	    "password": "$2a$10$RGW2xByBigGbX3N/7lb14O4CcoE6o023az12AuX3gM.CyVFLTxWCO",
+//	    "username": "HellKore",
+//	    "authorities": [],
+//	    "accountNonExpired": true,
+//	    "accountNonLocked": true,
+//	    "credentialsNonExpired": true,
+//	    "enabled": true
+//	}
+	
+	
 	
 	
 	@RequestMapping(value="/authenticate", method=RequestMethod.POST)

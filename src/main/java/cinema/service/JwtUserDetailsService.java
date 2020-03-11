@@ -34,6 +34,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 					trueUsername,
 					encryptedPassword,
 					new ArrayList<>());
+
 		} else {
 			throw new UsernameNotFoundException("User not found with this username");
 		}

@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import cinema.dto.AccountDto;
-import cinema.service.impl.AccountService;
+import cinema.service.IAccountService;
 
 @RestController
 @CrossOrigin
 public class RegisterController {
 	
 	@Autowired
-	AccountService accountService;
+	IAccountService accountService;
 	
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
