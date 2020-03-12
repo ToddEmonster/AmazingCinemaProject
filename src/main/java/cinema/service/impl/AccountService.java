@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cinema.dto.AccountDto;
-import cinema.dto.MovieFull;
 import cinema.persistence.entity.Account;
 import cinema.persistence.repository.AccountRepository;
 import cinema.service.IAccountService;
@@ -27,6 +26,13 @@ public class AccountService implements IAccountService {
 	
 	@Autowired
 	ModelMapper mapper;
+	
+	@Override
+	public Optional<AccountDto> getAccountByIdUser(Integer idUser) {
+		return accountRepository.findById(idUser)
+				.map(me -> mapper.map(me, AccountDto.class));
+	}
+	
 	
 	@Override
 	public Optional<AccountDto> getAccountByUsername(String username) {
@@ -102,11 +108,12 @@ public class AccountService implements IAccountService {
 				+ username + " n'existe pas. Veuillez vérifier votre saisie." ;
 	}
 
+
 	@Override
 	public Optional<AccountDto> setAccountAdmin(String username) {
 		Optional<Account> accountOpt = accountRepository.findByUsername(username);
 		accountOpt.ifPresent(acc-> {
-			acc.setAdminRole(true);
+			acc.setIsAdmin(true);
 			accountRepository.flush();
 		});
 		return Optional.of(mapper.map(accountOpt.get(), AccountDto.class));
@@ -116,7 +123,7 @@ public class AccountService implements IAccountService {
 	public Optional<AccountDto> setAccountNonAdmin(String username) {
 		Optional<Account> accountOpt = accountRepository.findByUsername(username);
 		accountOpt.ifPresent(acc-> {
-			acc.setAdminRole(false);
+			acc.setIsAdmin(false);
 			accountRepository.flush();
 		});
 		return Optional.of(mapper.map(accountOpt.get(), AccountDto.class));

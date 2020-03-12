@@ -17,6 +17,8 @@ public interface IAccountService {
 	Optional<AccountDto> setAccountNonAdmin(String username);
 	
 	Optional<AccountDto> getAccountByUsername(String username);
+	Optional<AccountDto> getAccountByIdUser(Integer idUser);
+	
 //	Optional<List<Integer>> getLikedMovies();
 	
 

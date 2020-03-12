@@ -5,8 +5,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,10 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cinema.dto.AccountDto;
-import cinema.dto.MovieLight;
 import cinema.service.IAccountService;
 import cinema.service.IMovieService;
-import cinema.service.impl.MovieService;
 
 @RestController
 @RequestMapping("api/account")
@@ -38,6 +38,15 @@ public class AccountController {
 		return AccountService.getAllUsers();
 	}
 	
+	@CrossOrigin
+	@GetMapping("/{id}")
+	@ResponseBody
+	public ResponseEntity<?> getUserById(
+			@PathVariable("id") Integer idUser
+			) {
+		return ResponseEntity.ok(AccountService.getAccountByIdUser(idUser));
+	}
+	
 	
 	// See if someone is logged in
 	@CrossOrigin
@@ -47,6 +56,7 @@ public class AccountController {
 		return AccountService.showIfSomeoneIsLoggedIn();
 	}
 	
+	 
 	// Create account
 	@CrossOrigin
 	@PostMapping
@@ -72,9 +82,10 @@ public class AccountController {
 		return AccountService.logoutAccount(username);
 	}	
 	
+	
 	// Set account admin
 	@CrossOrigin
-	@PutMapping("/setAdmin")
+	@PutMapping("/setAsAdmin")
 	@ResponseBody
 	public Optional<AccountDto> setAccountAdmin(@RequestParam("u") String username) {
 		return AccountService.setAccountAdmin(username);
