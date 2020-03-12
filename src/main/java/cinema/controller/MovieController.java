@@ -24,6 +24,7 @@ import cinema.persistence.entity.ColorMode;
 import cinema.persistence.entity.Genre;
 import cinema.service.IMovieService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/movie")
 public class MovieController {

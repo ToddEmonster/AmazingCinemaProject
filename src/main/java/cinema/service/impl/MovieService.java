@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import cinema.dto.MovieFull;
 import cinema.dto.MovieLight;
@@ -167,6 +168,7 @@ public class MovieService implements IMovieService {
 	/*
 	 * CREATE, UPDATE, DELETE
 	 */
+	@CrossOrigin
 	@Override
 	public MovieFull addMovie(MovieFull movieDto) {
 		Movie movieSaved = mapper.map(movieDto, Movie.class);
