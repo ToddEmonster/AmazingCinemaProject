@@ -28,8 +28,8 @@ public class AccountService implements IAccountService {
 	ModelMapper mapper;
 	
 	@Override
-	public Optional<AccountDto> getAccountByIdUser(Integer idUser) {
-		return accountRepository.findById(idUser)
+	public Optional<AccountDto> getAccountByIdAccount(Integer idAccount) {
+		return accountRepository.findById(idAccount)
 				.map(me -> mapper.map(me, AccountDto.class));
 	}
 	

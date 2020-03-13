@@ -14,5 +14,5 @@ public interface AccountRepository extends JpaRepository<Account, Integer>{
 	Optional<Account> findByEmail(String email);
 	Set<Account> findByIsAdmin(Boolean isAdmin);
 	Set<Account> findByLogged(Boolean loggedIn);
-	Optional<Account> findByIdUser(Integer idUser);
+	Optional<Account> findByidAccount(Integer idAccount);
 }

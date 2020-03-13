@@ -4,7 +4,7 @@ import java.util.List;
 
 public class AccountDto {
 	
-	private Integer idUser;
+	private Integer idAccount;
 	private String firstName;
 	private String lastName;
 	private String username;
@@ -15,12 +15,12 @@ public class AccountDto {
 
 	private List<Integer> likedMovies;
 
-	public Integer getIdUser() {
-		return idUser;
+	public Integer getidAccount() {
+		return idAccount;
 	}
 
-	public void setIdUser(Integer idUser) {
-		this.idUser = idUser;
+	public void setidAccount(Integer idAccount) {
+		this.idAccount = idAccount;
 	}
 
 	public String getFirstName() {

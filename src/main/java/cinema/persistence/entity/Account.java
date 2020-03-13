@@ -18,7 +18,7 @@ import javax.validation.constraints.NotEmpty;
 @Table(name = "accounts")
 public class Account {
 	
-	private Integer idUser;
+	private Integer idAccount;
 	private String firstName;
 	private String lastName;
 //	private LocalDate birthdate;
@@ -49,10 +49,10 @@ public class Account {
 	this(null, firstName, lastName, username, email, password, isAdmin, false);
 	}
 	
-	public Account(Integer idUser, String firstName, String lastName, String username, 
+	public Account(Integer idAccount, String firstName, String lastName, String username, 
 				   String email, String password, Boolean isAdmin, Boolean logged) {
 		super();
-		this.idUser = idUser;
+		this.idAccount = idAccount;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
@@ -65,12 +65,12 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_user")
-	public Integer getIdUser() {
-		return idUser;
+	public Integer getidAccount() {
+		return idAccount;
 	}
 
-	public void setIdUser(Integer id_user) {
-		this.idUser = id_user;
+	public void setidAccount(Integer id_user) {
+		this.idAccount = id_user;
 	}
 	
 	@NotEmpty

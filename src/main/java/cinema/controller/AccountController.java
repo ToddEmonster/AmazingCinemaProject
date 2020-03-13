@@ -42,9 +42,9 @@ public class AccountController {
 	@GetMapping("/{id}")
 	@ResponseBody
 	public ResponseEntity<?> getUserById(
-			@PathVariable("id") Integer idUser
+			@PathVariable("id") Integer idAccount
 			) {
-		return ResponseEntity.ok(AccountService.getAccountByIdUser(idUser));
+		return ResponseEntity.ok(AccountService.getAccountByIdAccount(idAccount));
 	}
 	
 	
