@@ -156,7 +156,7 @@ public class MovieController {
 	@CrossOrigin
 	@PutMapping("/addActor")
 	public Optional<MovieFull> addActor(@RequestParam("a") int idActor,
-									@RequestParam("m") int idMovie) {
+									    @RequestParam("m") int idMovie) {
 		return MovieService.addActor(idActor, idMovie);
 	}
 
