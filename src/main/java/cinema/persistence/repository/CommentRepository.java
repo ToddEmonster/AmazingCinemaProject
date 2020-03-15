@@ -14,8 +14,7 @@ public interface CommentRepository  extends JpaRepository <Comment, Integer>{
 	
 	Optional<Comment> findById (Integer id);
 	Optional<Comment> findByCommentContainingIgnoreCase(String truc);
-//	Optional<Comment> findByIdMovie (Integer idMovie);
-	Optional<Comment> findByMovie (Movie movie);
+	Set<Comment> findByMovie (Movie movie);
 //	Optional<Comment> findByIdAccount (Integer idAccount);
 	Optional<Comment> findByAccount (Account account);
 

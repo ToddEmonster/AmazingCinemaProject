@@ -23,18 +23,20 @@ public interface ICommentService {
 	 */
 	List<CommentDto> getAllComments();
 	Optional<CommentDto> getCommentById ( int idComment);
+	Set<CommentDto> getCommentsByIdMovie(Integer idMovie);
+	Set<CommentDto> getCommentsByMovie(Movie movie);
+	Set<CommentDto> getCommentsByIdAccount(Integer idAccount);
 //	Set<Comment> getCommentsByIdMovie(Integer idMovie);
-	Set<Comment> getCommentsByMovie(Movie movie);
-	Set<Comment> getCommentsByIdAccount(Integer idAccount);
 	
 	/*
 	 * UPDATE
 	 */
-	Optional<Comment> modifyComment(Comment comment);
+	Optional<CommentDto> modifyComment(Comment comment);
 	
 	/*
 	 * DELETE
 	 */
-	Optional<Comment> deleteComment(int idComment );
+	Optional<CommentDto> deleteComment(int idComment );
+
 
 }

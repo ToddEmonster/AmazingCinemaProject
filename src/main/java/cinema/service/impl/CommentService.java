@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -61,7 +62,6 @@ public class CommentService implements ICommentService {
 			Movie associatedMovie = optAssociatedMovie.get();
 			Account associatedAccount = optAssociatedAccount.get();
 			
-			Comment commentSaved = mapper.map(commentDto, Comment.class);
 			Comment commentSavedWithEntities = mapper.map(commentDto, Comment.class);
 			
 			// je lui dis bien que sa propriété movie c'est le Movie qui correspond à idMovie
@@ -71,8 +71,6 @@ public class CommentService implements ICommentService {
 			// je sauvegarde dans le repo
 			commentRepository.save(commentSavedWithEntities);
 			
-			// je remappe en Dto pour le retour
-			mapper.map(commentSaved, commentDto);
 			return commentDto;
 		} else {
 			System.out.println("We did not find the movie associated with the idMovie you posted.");
@@ -87,35 +85,51 @@ public class CommentService implements ICommentService {
 		
 	}
 	
-//	@Override
-//	public Set<Comment> getCommentsByIdMovie(Integer idMovie) {
-//		
-//		return null;
-//	}
 	
 	@Override
-	public Set<Comment> getCommentsByMovie(Movie movie) {
-		
-		return null;
+	public Set<CommentDto> getCommentsByMovie(Movie movie) {
+		return commentRepository.findByMovie(movie)
+				.stream()
+				.map(me -> mapper.map(me, CommentDto.class))
+				.collect(Collectors.toSet());
 	}
 	
 	@Override
-	public Set<Comment> getCommentsByIdAccount(Integer idAccount) {
+	public Set<CommentDto> getCommentsByIdMovie(Integer idMovie) {
+		Optional<Movie> optAssociatedMovie = movieService.getMovieById(idMovie)
+				.map(me -> mapper.map(me, Movie.class));
+		
+		if (optAssociatedMovie.isPresent()) {
+			Movie associatedMovie = optAssociatedMovie.get();
+			
+			return commentRepository.findByMovie(associatedMovie)
+						.stream()
+						.map(me -> mapper.map(me, CommentDto.class))
+						.collect(Collectors.toSet());
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
+	public Set<CommentDto> getCommentsByIdAccount(Integer idAccount) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public Optional<Comment> modifyComment(Comment comment) {
+	public Optional<CommentDto> modifyComment(Comment comment) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Optional<Comment> deleteComment(int idComment) {
+	public Optional<CommentDto> deleteComment(int idComment) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 	
 

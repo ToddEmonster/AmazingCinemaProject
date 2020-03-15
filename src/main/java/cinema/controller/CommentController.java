@@ -2,6 +2,7 @@ package cinema.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,12 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cinema.dto.CommentDto;
 import cinema.exception.MovieNotFoundException;
 import cinema.persistence.entity.Comment;
+import cinema.persistence.entity.Movie;
 import cinema.service.ICommentService;
 import cinema.service.impl.CommentService;
 
@@ -32,6 +35,20 @@ public class CommentController {
 	@ResponseBody
 	public List<CommentDto> allComments() {
 		return commentService.getAllComments();
+	}
+
+	@CrossOrigin
+	@GetMapping("/byMovieId")
+	@ResponseBody
+	public Set<CommentDto> getByIdMovie(@RequestParam("m") Integer idMovie) {
+		return commentService.getCommentsByIdMovie(idMovie);
+	}
+	
+	@CrossOrigin
+	@GetMapping("/byMovie")
+	@ResponseBody
+	public Set<CommentDto> getByMovie(@RequestParam("m") Movie movie) {
+		return commentService.getCommentsByMovie(movie);
 	}
 	
 	@CrossOrigin
