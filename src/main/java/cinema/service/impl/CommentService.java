@@ -95,6 +95,14 @@ public class CommentService implements ICommentService {
 	}
 	
 	@Override
+	public Set<CommentDto> getCommentsByAccount(Account account) {
+		return commentRepository.findByAccount(account)
+				.stream()
+				.map(me -> mapper.map(me, CommentDto.class))
+				.collect(Collectors.toSet());
+	}
+	
+	@Override
 	public Set<CommentDto> getCommentsByIdMovie(Integer idMovie) {
 		Optional<Movie> optAssociatedMovie = movieService.getMovieById(idMovie)
 				.map(me -> mapper.map(me, Movie.class));
@@ -113,9 +121,22 @@ public class CommentService implements ICommentService {
 	
 	@Override
 	public Set<CommentDto> getCommentsByIdAccount(Integer idAccount) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Account> optAssociatedAccount = accountService.getAccountByIdAccount(idAccount)
+				.map(me -> mapper.map(me, Account.class));
+		
+		if (optAssociatedAccount.isPresent()) {
+			Account associatedAccout = optAssociatedAccount.get();
+			
+			return commentRepository.findByAccount(associatedAccout)
+						.stream()
+						.map(me -> mapper.map(me, CommentDto.class))
+						.collect(Collectors.toSet());
+		} else {
+			return null;
+		}
 	}
+	
+	
 	
 	@Override
 	public Optional<CommentDto> modifyComment(Comment comment) {
@@ -125,9 +146,15 @@ public class CommentService implements ICommentService {
 
 	@Override
 	public Optional<CommentDto> deleteComment(int idComment) {
-		// TODO Auto-generated method stub
-		return null;
+		
+			commentRepository.findById(idComment)
+				.ifPresent(m -> {
+					commentRepository.delete(m);
+					commentRepository.flush();
+				});
+				return null;
 	}
+	
 
 	
 

@@ -6,6 +6,7 @@ import java.util.Set;
 
 
 import cinema.dto.CommentDto;
+import cinema.persistence.entity.Account;
 import cinema.persistence.entity.Comment;
 import cinema.persistence.entity.Movie;
 
@@ -16,16 +17,18 @@ public interface ICommentService {
 	/*
 	 * CREATE
 	 */
-	CommentDto addComment (CommentDto comment);
+	CommentDto addComment (CommentDto comment);						//OK
 	
 	/*
 	 * READ
 	 */
-	List<CommentDto> getAllComments();
-	Optional<CommentDto> getCommentById ( int idComment);
-	Set<CommentDto> getCommentsByIdMovie(Integer idMovie);
-	Set<CommentDto> getCommentsByMovie(Movie movie);
+	List<CommentDto> getAllComments();								// OK
+	Optional<CommentDto> getCommentById ( int idComment);			// OK
+	Set<CommentDto> getCommentsByIdMovie(Integer idMovie);			// ok
+	Set<CommentDto> getCommentsByMovie(Movie movie);				 
 	Set<CommentDto> getCommentsByIdAccount(Integer idAccount);
+	Set<CommentDto> getCommentsByAccount(Account account);
+	
 //	Set<Comment> getCommentsByIdMovie(Integer idMovie);
 	
 	/*

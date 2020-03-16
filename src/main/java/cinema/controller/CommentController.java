@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cinema.dto.CommentDto;
+import cinema.dto.MovieFull;
 import cinema.exception.MovieNotFoundException;
 import cinema.persistence.entity.Comment;
 import cinema.persistence.entity.Movie;
@@ -69,5 +71,14 @@ public class CommentController {
 		
 		throw new MovieNotFoundException();
 	}
+	
+	
+	@CrossOrigin
+	@DeleteMapping("/{id}")
+	@ResponseBody
+	public Optional<CommentDto> deleteComment(@PathVariable("id") int idComment) {
+		return commentService.deleteComment(idComment);
+	}
+	
 
 }
