@@ -59,7 +59,7 @@ public class AccountController {
 	 
 	// Create account
 	@CrossOrigin
-	@PostMapping
+	@PostMapping("/register")
 	@ResponseBody
 	public AccountDto createAccount(@RequestBody AccountDto account) {
 		return AccountService.createAccount(account);
