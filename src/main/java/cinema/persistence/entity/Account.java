@@ -65,11 +65,11 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_user")
-	public Integer getidAccount() {
+	public Integer getIdAccount() {
 		return idAccount;
 	}
 
-	public void setidAccount(Integer id_user) {
+	public void setIdAccount(Integer id_user) {
 		this.idAccount = id_user;
 	}
 	

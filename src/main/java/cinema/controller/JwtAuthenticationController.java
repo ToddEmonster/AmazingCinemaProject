@@ -86,7 +86,7 @@ public class JwtAuthenticationController {
 		// TODO : aussi faire passer l'info dans le Back que le user est connecté, typiquement AccountService.login(paramètres))
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		final String username = authenticationRequest.getUsername();
-		final int idUser = accountRepository.findByUsername(username).get().getIdUser();
+		final int idUser = accountRepository.findByUsername(username).get().getIdAccount();
 		final boolean isAdmin = accountRepository.findByUsername(username).get().getIsAdmin();
 		
 		return ResponseEntity.ok(new JwtResponse(token, username, idUser, isAdmin));
