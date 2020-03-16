@@ -2,6 +2,7 @@ package cinema.controller;
 
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +21,8 @@ import cinema.dto.AccountDto;
 import cinema.model.JwtRequest;
 import cinema.model.JwtResponse;
 import cinema.model.JwtTokenRequest;
+import cinema.model.LoggedUserResponse;
+import cinema.persistence.repository.AccountRepository;
 import cinema.service.IAccountService;
 import cinema.service.JwtUserDetailsService;
 
@@ -34,43 +37,41 @@ public class JwtAuthenticationController {
 	IAccountService accountService;
 	
 	@Autowired
+	AccountRepository accountRepository;
+	
+	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 	
-	// Changé, avant c'était direct le UserDetailsService du framework Spring
+	@Autowired
+	ModelMapper mapper;
+	
 	@Autowired
 	private JwtUserDetailsService jwtUserDetailsService;
 	
 	
-	
-	@RequestMapping(value="/isLogged", method=RequestMethod.POST)
+	@RequestMapping(value="/whoIsLogged", method=RequestMethod.PUT)
 	public ResponseEntity<?> loggedUserFromToken (
 			@RequestBody JwtTokenRequest tokenFromFront
 			) {
 		String loggedUsername = jwtTokenUtil.getUserNameFromToken(tokenFromFront.getToken());
 		
-		// En vrai je renvoie ce que je veux si je veux !
+		// First version of the response
 		UserDetails firstResponse = jwtUserDetailsService.loadUserByUsername(loggedUsername);
 		
-		Optional<AccountDto> secondResponse = accountService.getAccountByUsername(loggedUsername);
-		
-//		any finalResponse = map;
-		
-		return ResponseEntity.ok(secondResponse);
+		return ResponseEntity.ok(
+					accountService.getAccountByUsername(loggedUsername)
+					.map(re -> mapper.map(re, LoggedUserResponse.class))
+				);
 	}
 	
-	// La reponse dans firstResponse ressemble à ça :
-//	{
-//	    "password": "$2a$10$RGW2xByBigGbX3N/7lb14O4CcoE6o023az12AuX3gM.CyVFLTxWCO",
-//	    "username": "HellKore",
-//	    "authorities": [],
-//	    "accountNonExpired": true,
-//	    "accountNonLocked": true,
-//	    "credentialsNonExpired": true,
-//	    "enabled": true
-//	}
-	
-	
-	
+	@RequestMapping(value="/userInfo", method=RequestMethod.POST)
+	public ResponseEntity<?> getFullUser (
+			@RequestBody String username
+			) {
+		Optional<AccountDto> fullUser = accountService.getAccountByUsername(username);
+		
+		return ResponseEntity.ok(fullUser);
+	}	
 	
 	@RequestMapping(value="/authenticate", method=RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(
@@ -82,9 +83,13 @@ public class JwtAuthenticationController {
 		
 		final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getUsername()) ;
 		
+		// TODO : aussi faire passer l'info dans le Back que le user est connecté, typiquement AccountService.login(paramètres))
 		final String token = jwtTokenUtil.generateToken(userDetails);
+		final String username = authenticationRequest.getUsername();
+		final int idUser = accountRepository.findByUsername(username).get().getIdUser();
+		final boolean isAdmin = accountRepository.findByUsername(username).get().getIsAdmin();
 		
-		return ResponseEntity.ok(new JwtResponse(token));
+		return ResponseEntity.ok(new JwtResponse(token, username, idUser, isAdmin));
 	}
 	
 	
