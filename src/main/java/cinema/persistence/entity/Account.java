@@ -69,8 +69,8 @@ public class Account {
 		return idAccount;
 	}
 
-	public void setIdAccount(Integer id_user) {
-		this.idAccount = id_user;
+	public void setIdAccount(Integer idAccount) {
+		this.idAccount = idAccount;
 	}
 	
 	@NotEmpty
