@@ -34,7 +34,7 @@ public interface ICommentService {
 	/*
 	 * UPDATE
 	 */
-	Optional<CommentDto> modifyComment(Comment comment);
+	CommentDto modifyComment(CommentDto comment);
 	
 	/*
 	 * DELETE

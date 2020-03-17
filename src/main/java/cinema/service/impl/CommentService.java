@@ -139,9 +139,13 @@ public class CommentService implements ICommentService {
 	
 	
 	@Override
-	public Optional<CommentDto> modifyComment(Comment comment) {
-		// TODO Auto-generated method stub
-		return null;
+	public CommentDto modifyComment(CommentDto comment) {
+		Comment commentFromRepo = commentRepository.findByIdComment(comment.getIdComment()).get();
+		commentFromRepo.setDate(comment.getDate());
+		commentFromRepo.setComment(comment.getComment());
+		commentRepository.flush();
+		
+		return mapper.map(commentFromRepo, CommentDto.class);
 	}
 
 	@Override

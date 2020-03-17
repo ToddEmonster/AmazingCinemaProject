@@ -12,7 +12,7 @@ import cinema.persistence.entity.Comment;
 public interface CommentRepository  extends JpaRepository <Comment, Integer>{
 	
 	
-	Optional<Comment> findById (Integer id);
+	Optional<Comment> findByIdComment (Integer idComment);
 	Optional<Comment> findByCommentContainingIgnoreCase(String truc);
 	Set<Comment> findByMovie (Movie movie);
 //	Optional<Comment> findByIdAccount (Integer idAccount);
